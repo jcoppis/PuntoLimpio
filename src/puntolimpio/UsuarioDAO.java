@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 public class UsuarioDAO implements DAO<Usuario, Integer> {
 
@@ -21,40 +22,29 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
 	
 	@Override
 	public Usuario findById(Integer id) {
-		Usuario u = new Usuario();
-		
-		u.setNombre("oeu");
-//		EntityManager entityManager=EMF.createEntityManager();
-//		Usuario usuario=entityManager.find(Usuario.class, id);
-//		entityManager.close();
-		return u;
+		EntityManager entityManager=EMF.createEntityManager();
+		Usuario usuario = entityManager.find(Usuario.class, id);
+		entityManager.close();
+		return usuario;
 	}
 
 	@Override
 	public Usuario persist(Usuario usuario) {
-//		EntityManager entityManager=EMF.createEntityManager();
-//		entityManager.getTransaction().begin();
-//		entityManager.persist(usuario);
-//		entityManager.getTransaction().commit();
-//		entityManager.close();
+		EntityManager entityManager=EMF.createEntityManager();
+		entityManager.getTransaction().begin();
+		entityManager.persist(usuario);
+		entityManager.getTransaction().commit();
+		entityManager.close();
 		return usuario;
 	}
 
 	@Override
 	public List<Usuario> findAll() {
-		List<Usuario> a = new ArrayList<Usuario>();
-		Usuario u = new Usuario();
-		u.setNombre("aoe");
-		a.add(u);
-		
-		Usuario u2 = new Usuario();
-		u.setNombre("sosso");
-		a.add(u2);
-		
-		Usuario u3 = new Usuario();
-		u.setNombre("dola");
-		a.add(u3);
-		return a;
+//		EntityManager entityManager=EMF.createEntityManager();
+//		Query q = entityManager.createQuery("SELECT id, nombre, geolocalizacion FROM usuario;");
+//		List<Usuario> usuarios = q.getResultList();
+//		entityManager.close();
+		return null;
 	}
 
 	@Override
