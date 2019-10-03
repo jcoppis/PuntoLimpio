@@ -12,7 +12,7 @@ public class Usuario {
 	private int id;
 	
 	private String nombre;
-	private String geolocalizacion;	
+	private String geolocalizacion;
 
 	public int getId() {
 		return id;
@@ -37,5 +37,4 @@ public class Usuario {
 	public void setGeolocalizacion(String geolocalizacion) {
 		this.geolocalizacion = geolocalizacion;
 	}
-
 }

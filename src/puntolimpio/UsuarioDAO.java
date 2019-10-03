@@ -1,6 +1,5 @@
 package puntolimpio;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -40,11 +39,11 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
 
 	@Override
 	public List<Usuario> findAll() {
-//		EntityManager entityManager=EMF.createEntityManager();
-//		Query q = entityManager.createQuery("SELECT id, nombre, geolocalizacion FROM usuario;");
-//		List<Usuario> usuarios = q.getResultList();
-//		entityManager.close();
-		return null;
+		EntityManager entityManager=EMF.createEntityManager();
+		Query q = entityManager.createQuery("SELECT u FROM Usuario u");
+		List<Usuario> usuarios = q.getResultList();
+		entityManager.close();
+		return usuarios;
 	}
 
 	@Override

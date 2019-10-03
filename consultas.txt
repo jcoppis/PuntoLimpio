@@ -1,0 +1,19 @@
+:host=http://localhost:8080/PuntoLimpio/api
+
+# POST /usuarios
+:data = <<
+{
+  "id": 0,
+  "nombre": "hola",
+  "geolocalizacion": "aoe"
+}
+#
+
+POST :host/usuarios
+Content-Type: application/json
+
+:data
+
+
+# GET /usuarios
+GET :host/usuarios
