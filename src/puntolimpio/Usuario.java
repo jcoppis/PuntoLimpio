@@ -1,8 +1,11 @@
 package puntolimpio;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario {
@@ -13,6 +16,9 @@ public class Usuario {
 	
 	private String nombre;
 	private String geolocalizacion;	
+
+	@OneToMany(mappedBy = "usuario")
+	private List<UserItem> userItems;
 
 	public int getId() {
 		return id;
@@ -37,5 +43,15 @@ public class Usuario {
 	public void setGeolocalizacion(String geolocalizacion) {
 		this.geolocalizacion = geolocalizacion;
 	}
+
+	public List<UserItem> getUserItems() {
+		return userItems;
+	}
+
+	public void setUserItems(List<UserItem> userItems) {
+		this.userItems = userItems;
+	}
+	
+	
 
 }
