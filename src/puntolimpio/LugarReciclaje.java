@@ -15,7 +15,8 @@ public class LugarReciclaje {
 	private int id;
 	
 	private String nombre;
-	private String geolocalizacion;
+	private double latitude;
+	private double longitude;
 	
 	@ManyToMany
 	private List<Item> items;
@@ -32,11 +33,20 @@ public class LugarReciclaje {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getGeolocalizacion() {
-		return geolocalizacion;
+	public double getLatitude() {
+		return latitude;
 	}
-	public void setGeolocalizacion(String geolocalizacion) {
-		this.geolocalizacion = geolocalizacion;
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
 
 }

@@ -15,7 +15,8 @@ public class Usuario {
 	private int id;
 	
 	private String nombre;
-	private String geolocalizacion;	
+	private double latitude;
+	private double longitude;
 
 	@OneToMany(mappedBy = "usuario")
 	private List<UserItem> userItems;
@@ -36,13 +37,6 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 
-	public String getGeolocalizacion() {
-		return geolocalizacion;
-	}
-
-	public void setGeolocalizacion(String geolocalizacion) {
-		this.geolocalizacion = geolocalizacion;
-	}
 
 	public List<UserItem> getUserItems() {
 		return userItems;
@@ -51,7 +45,23 @@ public class Usuario {
 	public void setUserItems(List<UserItem> userItems) {
 		this.userItems = userItems;
 	}
-	
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
 	
 
 }

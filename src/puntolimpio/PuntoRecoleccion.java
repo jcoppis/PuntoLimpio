@@ -14,7 +14,8 @@ public class PuntoRecoleccion {
 	@GeneratedValue
 	private int id;
 	
-	private String geolocalizacion;
+	private double latitude;
+	private double longitude;
 
 	@OneToMany(mappedBy="puntoRecoleccion")
 	private List<UserItem> itemsArecolectar;
@@ -30,13 +31,20 @@ public class PuntoRecoleccion {
 	}
 
 
-	public String getGeolocalizacion() {
-		return geolocalizacion;
+	public double getLatitude() {
+		return latitude;
 	}
 
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
 
-	public void setGeolocalizacion(String geolocalizacion) {
-		this.geolocalizacion = geolocalizacion;
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
 
 
