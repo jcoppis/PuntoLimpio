@@ -3,6 +3,7 @@ package puntolimpio;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -17,7 +18,7 @@ public class PuntoRecoleccion {
 	private double latitude;
 	private double longitude;
 
-	@OneToMany(mappedBy="puntoRecoleccion")
+	@OneToMany(mappedBy="puntoRecoleccion", fetch=FetchType.EAGER)
 	private List<UserItem> itemsArecolectar;
 
 	
