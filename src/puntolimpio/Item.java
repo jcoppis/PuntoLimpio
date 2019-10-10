@@ -19,8 +19,8 @@ public class Item {
 	private String tipo;
 	private String nombre;
 	
-	@OneToMany(mappedBy = "item", fetch=FetchType.EAGER)
-	private List<UserItem> userItems;
+//	@OneToMany(mappedBy = "item", fetch=FetchType.LAZY)
+//	private List<UserItem> userItems;
 	
 	@ManyToMany(mappedBy="items")
 	private List<LugarReciclaje> lugaresDeReciclaje;
@@ -57,13 +57,13 @@ public class Item {
 		this.nombre = nombre;
 	}
 
-	public List<UserItem> getUserItems() {
-		return userItems;
-	}
-
-	public void setUserItems(List<UserItem> userItems) {
-		this.userItems = userItems;
-	}
+//	public List<UserItem> getUserItems() {
+//		return userItems;
+//	}
+//
+//	public void setUserItems(List<UserItem> userItems) {
+//		this.userItems = userItems;
+//	}
 
 	public List<LugarReciclaje> getLugaresDeReciclaje() {
 		return lugaresDeReciclaje;

@@ -19,8 +19,8 @@ public class Usuario {
 	private double latitude;
 	private double longitude;
 
-	@OneToMany(mappedBy = "usuario", fetch=FetchType.EAGER)
-	private List<UserItem> userItems;
+//	@OneToMany(mappedBy = "usuario", fetch=FetchType.LAZY)
+//	private List<UserItem> userItems;
 
 	public int getId() {
 		return id;
@@ -39,13 +39,13 @@ public class Usuario {
 	}
 
 
-	public List<UserItem> getUserItems() {
-		return userItems;
-	}
-
-	public void setUserItems(List<UserItem> userItems) {
-		this.userItems = userItems;
-	}
+//	public List<UserItem> getUserItems() {
+//		return userItems;
+//	}
+//
+//	public void setUserItems(List<UserItem> userItems) {
+//		this.userItems = userItems;
+//	}
 
 	public double getLatitude() {
 		return latitude;

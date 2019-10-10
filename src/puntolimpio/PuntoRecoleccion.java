@@ -18,8 +18,8 @@ public class PuntoRecoleccion {
 	private double latitude;
 	private double longitude;
 
-	@OneToMany(mappedBy="puntoRecoleccion", fetch=FetchType.EAGER)
-	private List<UserItem> itemsArecolectar;
+//	@OneToMany(mappedBy="puntoRecoleccion", fetch=FetchType.LAZY)
+//	private List<UserItem> itemsArecolectar;
 
 	
 	public int getId() {
@@ -49,14 +49,14 @@ public class PuntoRecoleccion {
 	}
 
 
-	public List<UserItem> getItemsArecolectar() {
-		return itemsArecolectar;
-	}
-
-
-	public void setItemsArecolectar(List<UserItem> itemsArecolectar) {
-		this.itemsArecolectar = itemsArecolectar;
-	}
+//	public List<UserItem> getItemsArecolectar() {
+//		return itemsArecolectar;
+//	}
+//
+//
+//	public void setItemsArecolectar(List<UserItem> itemsArecolectar) {
+//		this.itemsArecolectar = itemsArecolectar;
+//	}
 
 
 	public int volumenNecesario() {
