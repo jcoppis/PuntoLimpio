@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Itinerario {
 
@@ -15,8 +17,11 @@ public class Itinerario {
 	private int id;
 	
 	private int idCamion;
+
 	@ManyToOne
 	private PuntoRecoleccion puntoRecoleccion;
+
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
 	private Timestamp fecha;
 
 	
@@ -57,10 +62,5 @@ public class Itinerario {
 
 	public void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
-	}
-
-
-	public void llevarItemsLugarMasCercano() {
-		
 	}
 }

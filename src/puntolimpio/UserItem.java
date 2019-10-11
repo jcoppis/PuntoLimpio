@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="user_item")
 public class UserItem {
@@ -19,13 +21,19 @@ public class UserItem {
 	
 	@ManyToOne
 	private Usuario usuario;
+
 	@ManyToOne
 	private Item item;
+
 	@ManyToOne
 	private PuntoRecoleccion puntoRecoleccion;
+
 	private int cantidad;
+
 	@Column(name="fecha_reciclaje")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
 	private Timestamp fechaReciclaje;
+	
 	public int getId() {
 		return id;
 	}

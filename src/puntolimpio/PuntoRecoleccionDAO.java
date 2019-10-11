@@ -38,11 +38,11 @@ public class PuntoRecoleccionDAO implements DAO<PuntoRecoleccion, Integer>{
 
 		@Override
 		public List<PuntoRecoleccion> findAll() {
-//			EntityManager entityManager=EMF.createEntityManager();
-//			Query q = entityManager.createQuery("SELECT id, nombre, geolocalizacion FROM usuario;");
-//			List<Usuario> items = q.getResultList();
-//			entityManager.close();
-			return null;
+			EntityManager entityManager=EMF.createEntityManager();
+			Query q = entityManager.createQuery("FROM PuntoRecoleccion");
+			List<PuntoRecoleccion> puntosRecoleccion = q.getResultList();
+			entityManager.close();
+			return puntosRecoleccion;
 		}
 
 		@Override
@@ -57,5 +57,7 @@ public class PuntoRecoleccionDAO implements DAO<PuntoRecoleccion, Integer>{
 			return false;
 		}
 
-
+		public int volumenNecesario() {
+			return 0;
+		}
 }

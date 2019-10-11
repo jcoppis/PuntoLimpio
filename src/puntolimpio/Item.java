@@ -1,14 +1,8 @@
 package puntolimpio;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-
 @Entity
 public class Item {
 	@Id
@@ -21,9 +15,6 @@ public class Item {
 	
 //	@OneToMany(mappedBy = "item", fetch=FetchType.LAZY)
 //	private List<UserItem> userItems;
-	
-//	@ManyToMany(mappedBy="items")
-//	private List<LugarReciclaje> lugaresDeReciclaje;
 
 	public int getId() {
 		return id;
@@ -64,14 +55,4 @@ public class Item {
 //	public void setUserItems(List<UserItem> userItems) {
 //		this.userItems = userItems;
 //	}
-
-//	public List<LugarReciclaje> getLugaresDeReciclaje() {
-//		return lugaresDeReciclaje;
-//	}
-//
-//	public void setLugaresDeReciclaje(List<LugarReciclaje> lugaresDeReciclaje) {
-//		this.lugaresDeReciclaje = lugaresDeReciclaje;
-//	}
-	
-
 }
