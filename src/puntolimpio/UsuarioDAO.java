@@ -38,13 +38,14 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
 		return usuario;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Usuario> findAll() {
-//		EntityManager entityManager=EMF.createEntityManager();
-//		Query q = entityManager.createQuery("SELECT id, nombre, geolocalizacion FROM usuario;");
-//		List<Usuario> usuarios = q.getResultList();
-//		entityManager.close();
-		return null;
+		EntityManager entityManager=EMF.createEntityManager();
+		Query q = entityManager.createQuery("SELECT id, nombre, latitude, longitude FROM Usuario;");
+		List<Usuario> usuarios = q.getResultList();
+		entityManager.close();
+		return usuarios;
 	}
 
 	@Override

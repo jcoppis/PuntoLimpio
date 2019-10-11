@@ -22,8 +22,8 @@ public class Item {
 //	@OneToMany(mappedBy = "item", fetch=FetchType.LAZY)
 //	private List<UserItem> userItems;
 	
-	@ManyToMany(mappedBy="items")
-	private List<LugarReciclaje> lugaresDeReciclaje;
+//	@ManyToMany(mappedBy="items")
+//	private List<LugarReciclaje> lugaresDeReciclaje;
 
 	public int getId() {
 		return id;
@@ -65,13 +65,13 @@ public class Item {
 //		this.userItems = userItems;
 //	}
 
-	public List<LugarReciclaje> getLugaresDeReciclaje() {
-		return lugaresDeReciclaje;
-	}
-
-	public void setLugaresDeReciclaje(List<LugarReciclaje> lugaresDeReciclaje) {
-		this.lugaresDeReciclaje = lugaresDeReciclaje;
-	}
+//	public List<LugarReciclaje> getLugaresDeReciclaje() {
+//		return lugaresDeReciclaje;
+//	}
+//
+//	public void setLugaresDeReciclaje(List<LugarReciclaje> lugaresDeReciclaje) {
+//		this.lugaresDeReciclaje = lugaresDeReciclaje;
+//	}
 	
 
 }

@@ -73,7 +73,7 @@
 					<warSourceDirectory>WebContent</warSourceDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<outputDirectory>target</outputDirectory>
-              		  		<warName>ROOT</warName>
+              		  		<warName>PuntoLimpio</warName>
 				</configuration>
 			</plugin>
 		</plugins>

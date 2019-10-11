@@ -26,6 +26,16 @@ public class UserItemDAO implements DAO<UserItem, Integer>{
 			return useritem;
 		}
 
+		
+		public List<UserItem> findUserById(Integer id) {
+			EntityManager entityManager=EMF.createEntityManager();
+			Query q = entityManager.createQuery("from UserItem u where u.usuario.id = :userId", UserItem.class);
+			q.setParameter("userId", id);
+			List<UserItem> userItem = q.getResultList();
+			entityManager.close();
+			return userItem;
+		}
+		
 		@Override
 		public UserItem persist(UserItem useritem) {
 			EntityManager entityManager=EMF.createEntityManager();
@@ -39,7 +49,7 @@ public class UserItemDAO implements DAO<UserItem, Integer>{
 		@Override
 		public List<UserItem> findAll() {
 //			EntityManager entityManager=EMF.createEntityManager();
-//			Query q = entityManager.createQuery("SELECT id, nombre, geolocalizacion FROM usuario;");
+//			Query q = entityManager.createQuery("SELECT id, nombre, latitude, longitude FROM Usuario;");
 //			List<Usuario> items = q.getResultList();
 //			entityManager.close();
 			return null;
