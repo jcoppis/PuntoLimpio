@@ -19,8 +19,8 @@ public class UserItemController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createUsuario(Usuario usuario) {
-		Usuario result= UsuarioDAO.getInstance().persist(usuario);
+	public Response createUsuarItem(UserItem usuario) {
+		UserItem result= UserItemDAO.getInstance().persist(usuario);
 		if(result == null) {
 			throw new RecursoDuplicado(usuario.getId());
 		}else {
@@ -30,8 +30,8 @@ public class UserItemController {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Usuario> getAllUsuarios() {
-		return UsuarioDAO.getInstance().findAll();
+	public List<UserItem> getAllUserItems() {
+		return UserItemDAO.getInstance().findAll();
 	}
 	
 	@GET

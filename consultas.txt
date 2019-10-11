@@ -46,3 +46,9 @@ GET :host/items
 :id = 1
 GET :host/items/:id
 #############
+#############
+GET :host/useritems
+#############
+:id = 1
+GET :host/useritems/:id
+#############

@@ -38,11 +38,11 @@ public class itemDAO implements DAO<Item, Integer>{
 
 		@Override
 		public List<Item> findAll() {
-//			EntityManager entityManager=EMF.createEntityManager();
-//			Query q = entityManager.createQuery("SELECT id, nombre, geolocalizacion FROM usuario;");
-//			List<Usuario> items = q.getResultList();
-//			entityManager.close();
-			return null;
+			EntityManager entityManager=EMF.createEntityManager();
+			Query q = entityManager.createQuery("FROM Item");
+			List<Item> items = q.getResultList();
+			entityManager.close();
+			return items;
 		}
 
 		@Override

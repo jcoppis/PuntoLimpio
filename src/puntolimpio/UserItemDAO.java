@@ -29,7 +29,7 @@ public class UserItemDAO implements DAO<UserItem, Integer>{
 		
 		public List<UserItem> findUserById(Integer id) {
 			EntityManager entityManager=EMF.createEntityManager();
-			Query q = entityManager.createQuery("from UserItem u where u.usuario.id = :userId", UserItem.class);
+			Query q = entityManager.createQuery("FROM UserItem u WHERE u.usuario.id = :userId", UserItem.class);
 			q.setParameter("userId", id);
 			List<UserItem> userItem = q.getResultList();
 			entityManager.close();
@@ -48,11 +48,11 @@ public class UserItemDAO implements DAO<UserItem, Integer>{
 
 		@Override
 		public List<UserItem> findAll() {
-//			EntityManager entityManager=EMF.createEntityManager();
-//			Query q = entityManager.createQuery("SELECT id, nombre, latitude, longitude FROM Usuario;");
-//			List<Usuario> items = q.getResultList();
-//			entityManager.close();
-			return null;
+			EntityManager entityManager=EMF.createEntityManager();
+			Query q = entityManager.createQuery("FROM UserItem");
+			List<UserItem> useritems = q.getResultList();
+			entityManager.close();
+			return useritems;
 		}
 
 		@Override

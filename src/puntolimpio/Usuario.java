@@ -1,12 +1,8 @@
 package puntolimpio;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario {
@@ -37,7 +33,6 @@ public class Usuario {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 
 //	public List<UserItem> getUserItems() {
 //		return userItems;

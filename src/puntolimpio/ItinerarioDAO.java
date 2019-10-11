@@ -5,30 +5,30 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-public class UsuarioDAO implements DAO<Usuario, Integer> {
+public class ItinerarioDAO implements DAO<Itinerario, Integer> {
 
-	private static UsuarioDAO daoUsuario;
+	private static ItinerarioDAO daoItinerario;
 	
-	private UsuarioDAO() {
+	private ItinerarioDAO() {
 		
 	}
     
-	public static UsuarioDAO getInstance() {
-		if(daoUsuario == null)
-			daoUsuario = new UsuarioDAO();
-		return daoUsuario;
+	public static ItinerarioDAO getInstance() {
+		if(daoItinerario == null)
+			daoItinerario = new ItinerarioDAO();
+		return daoItinerario;
 	}
 	
 	@Override
-	public Usuario findById(Integer id) {
+	public Itinerario findById(Integer id) {
 		EntityManager entityManager=EMF.createEntityManager();
-		Usuario usuario = entityManager.find(Usuario.class, id);
+		Itinerario itinerario = entityManager.find(Itinerario.class, id);
 		entityManager.close();
-		return usuario;
+		return itinerario;
 	}
 
 	@Override
-	public Usuario persist(Usuario usuario) {
+	public Itinerario persist(Itinerario usuario) {
 		EntityManager entityManager=EMF.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.persist(usuario);
@@ -39,16 +39,16 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Usuario> findAll() {
+	public List<Itinerario> findAll() {
 		EntityManager entityManager=EMF.createEntityManager();
-		Query q = entityManager.createQuery("FROM Usuario");
-		List<Usuario> usuarios = q.getResultList();
+		Query q = entityManager.createQuery("FROM Itinerario");
+		List<Itinerario> usuarios = q.getResultList();
 		entityManager.close();
 		return usuarios;
 	}
 
 	@Override
-	public Usuario update(Integer id, Usuario newEntityValues) {
+	public Itinerario update(Integer id, Itinerario newEntityValues) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -57,6 +57,11 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
 	public boolean delete(Integer id) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	
+	public void llevarItemsLugarMasCercano() {
+		
 	}
 
 }
