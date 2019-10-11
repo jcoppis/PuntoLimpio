@@ -12,8 +12,8 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/usuarios")
-public class UsuarioController {
+@Path("/useritems")
+public class UserItemController {
 
 	
 	@POST
@@ -37,11 +37,11 @@ public class UsuarioController {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Usuario getUsuariosById(@PathParam("id") String msg) {
+	public List<UserItem> getItemsByUserId(@PathParam("id") String msg) {
 		int id = Integer.valueOf(msg);
-		Usuario usuario = UsuarioDAO.getInstance().findById(id);
-		if(usuario != null)
-			return usuario;
+		List<UserItem> useritem = UserItemDAO.getInstance().findUserById(id);
+		if(useritem != null)
+			return useritem;
 		else
 			throw new RecursoNoExiste(id);
 	}

@@ -2,18 +2,66 @@ package puntolimpio;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="user_item")
 public class UserItem {
 
 	@Id
 	@GeneratedValue
 	private int id;
 	
-	private int fkUser;
-	private int fkItem;
+	@ManyToOne
+	private Usuario usuario;
+	@ManyToOne
+	private Item item;
+	@ManyToOne
+	private PuntoRecoleccion puntoRecoleccion;
+	private int cantidad;
+	@Column(name="fecha_reciclaje")
 	private Timestamp fechaReciclaje;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	public Item getItem() {
+		return item;
+	}
+	public void setItem(Item item) {
+		this.item = item;
+	}
+	public PuntoRecoleccion getPuntoRecoleccion() {
+		return puntoRecoleccion;
+	}
+	public void setPuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) {
+		this.puntoRecoleccion = puntoRecoleccion;
+	}
+	public int getCantidad() {
+		return cantidad;
+	}
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+	public Timestamp getFechaReciclaje() {
+		return fechaReciclaje;
+	}
+	public void setFechaReciclaje(Timestamp fechaReciclaje) {
+		this.fechaReciclaje = fechaReciclaje;
+	}
+	
+	
 }
