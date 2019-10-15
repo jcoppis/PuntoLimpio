@@ -58,6 +58,9 @@ public class Usuario {
 		this.longitude = longitude;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", latitude=" + latitude + ", longitude=" + longitude + "]";
+	}
 
 }
