@@ -28,13 +28,13 @@ public class ItinerarioDAO implements DAO<Itinerario, Integer> {
 	}
 
 	@Override
-	public Itinerario persist(Itinerario usuario) {
+	public Itinerario persist(Itinerario itinerario) {
 		EntityManager entityManager=EMF.createEntityManager();
 		entityManager.getTransaction().begin();
-		entityManager.persist(usuario);
+		entityManager.persist(itinerario);
 		entityManager.getTransaction().commit();
 		entityManager.close();
-		return usuario;
+		return itinerario;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -42,9 +42,9 @@ public class ItinerarioDAO implements DAO<Itinerario, Integer> {
 	public List<Itinerario> findAll() {
 		EntityManager entityManager=EMF.createEntityManager();
 		Query q = entityManager.createQuery("FROM Itinerario");
-		List<Itinerario> usuarios = q.getResultList();
+		List<Itinerario> itinerarios = q.getResultList();
 		entityManager.close();
-		return usuarios;
+		return itinerarios;
 	}
 
 	@Override

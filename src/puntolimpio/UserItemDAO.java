@@ -39,11 +39,14 @@ public class UserItemDAO implements DAO<UserItem, Integer>{
 		@Override
 		public UserItem persist(UserItem useritem) {
 			EntityManager entityManager=EMF.createEntityManager();
-			entityManager.getTransaction().begin();
-			entityManager.persist(useritem);
-			entityManager.getTransaction().commit();
-			entityManager.close();
-			return useritem;
+			if(this.isRecyclable(useritem.getItem())) {
+				entityManager.getTransaction().begin();
+				entityManager.persist(useritem);
+				entityManager.getTransaction().commit();
+				entityManager.close();
+				return useritem;
+			}
+			return null;
 		}
 
 		@Override
@@ -67,5 +70,12 @@ public class UserItemDAO implements DAO<UserItem, Integer>{
 			return false;
 		}
 
+		public boolean isRecyclable(Item item) {
+			EntityManager entityManager=EMF.createEntityManager();
+			Query q = entityManager.createQuery("FROM Tipo t WHERE t.tipo = :tipoItem");
+			q.setParameter("tipoItem", item.getTipo());
+			List<Tipo> tipes = q.getResultList();
+			return tipes.size() > 0;
+		}
 
 }

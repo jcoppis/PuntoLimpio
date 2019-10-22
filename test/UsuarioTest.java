@@ -51,33 +51,33 @@ public class UsuarioTest {
 		assertEquals(1, 2);
 	}
 		
-	@Test
-	public void usuarioPersistTest() {
-		EntityManager entityManager = emf.createEntityManager();
-
-		Usuario u = new Usuario();
-		u.setId(0);
-		u.setNombre("Pepito");
-		u.setLatitude(10);
-		u.setLongitude(90);
-		entityManager.getTransaction().begin();
-		entityManager.persist(u);
-		entityManager.getTransaction().commit();
-		entityManager.close();
-
-		assertNotNull(u.getId());
-	}
+//	@Test
+//	public void Persist5UsersTest() {
+//		EntityManager entityManager = emf.createEntityManager();
+//
+//		Usuario u = new Usuario();
+//		u.setId(0);
+//		u.setNombre("Pepito");
+//		u.setLatitude(10);
+//		u.setLongitude(90);
+//		entityManager.getTransaction().begin();
+//		entityManager.persist(u);
+//		entityManager.getTransaction().commit();
+//		entityManager.close();
+//
+//		assertNotNull(u.getId());
+//	}
 	
-	@Test
-	public void usuarioFindAllTest() {
-		EntityManager entityManager = emf.createEntityManager();
-		Query q = entityManager.createQuery("FROM Usuario");
-		List<Usuario> usuarios = q.getResultList();
-		usuarios.stream().forEach(e -> System.out.println(e));
-		entityManager.close();
-		
-		assertNotNull(usuarios);
-	}
+//	@Test
+//	public void usuarioFindAllTest() {
+//		EntityManager entityManager = emf.createEntityManager();
+//		Query q = entityManager.createQuery("FROM Usuario");
+//		List<Usuario> usuarios = q.getResultList();
+//		usuarios.stream().forEach(e -> System.out.println(e));
+//		entityManager.close();
+//		
+//		assertNotNull(usuarios);
+//	}
 
 	@Test
 	public void usuarioFindByIdTest() {
@@ -85,8 +85,11 @@ public class UsuarioTest {
 		Usuario usuario = entityManager.find(Usuario.class, 1);
 		System.out.println(usuario);
 		entityManager.close();
-		
 		assertTrue(usuario.getId() == 1);
+		assertEquals(usuario.getNombre(), "Javier");
+//		assertTrue(usuario.getNombre() == "Javier");
+		assertTrue(usuario.getLatitude() == 38.4161);
+		assertTrue(usuario.getLongitude() == 63.6167);
 	}
 	
 	@Test

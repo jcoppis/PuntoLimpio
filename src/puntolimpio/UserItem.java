@@ -1,12 +1,15 @@
 package puntolimpio;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Query;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -70,6 +73,11 @@ public class UserItem {
 	public void setFechaReciclaje(Timestamp fechaReciclaje) {
 		this.fechaReciclaje = fechaReciclaje;
 	}
-	
+	@Override
+	public String toString() {
+		return "UserItem [id=" + id + ", usuario=" + usuario + ", item=" + item + ", puntoRecoleccion="
+				+ puntoRecoleccion + ", cantidad=" + cantidad + ", fechaReciclaje=" + fechaReciclaje + "]";
+	}
+
 	
 }
