@@ -1,19 +1,54 @@
-:host=http://localhost:8080/PuntoLimpio/api
+:host = http://localhost:8080/PuntoLimpio/api
 
-# POST /usuarios
+#############
+:nombre = "pepito"
+:latitude = 61
+:longitude = 36
 :data = <<
 {
-  "id": 0,
-  "nombre": "hola",
-  "geolocalizacion": "aoe"
+"id": 0,
+"nombre": :nombre,
+"latitude": :latitude,
+"longitude": :longitude
 }
 #
-
 POST :host/usuarios
 Content-Type: application/json
 
 :data
-
-
-# GET /usuarios
+#############
 GET :host/usuarios
+#############
+:id = 1
+GET :host/usuarios/:id
+#############
+:id = 1
+GET :host/usuarios/v2/:id
+#############
+:nombre = "pepito"
+:tipo = "metal"
+:volumen = 36
+:data = <<
+{
+"id": 0,
+"nombre": :nombre,
+"tipo": :tipo,
+"volumen": :volumen
+}
+#
+POST :host/items
+Content-Type: application/json
+
+:data
+#############
+GET :host/items
+#############
+:id = 1
+GET :host/items/:id
+#############
+#############
+GET :host/useritems
+#############
+:id = 1
+GET :host/useritems/:id
+#############
