@@ -18,8 +18,8 @@ public class LugarReciclaje {
 	private double latitude;
 	private double longitude;
 	
-	@ManyToMany
-	private List<Item> items;
+//	@ManyToMany
+//	private List<Item> items;
 	
 	public int getId() {
 		return id;
@@ -48,5 +48,12 @@ public class LugarReciclaje {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-
+//	public List<Item> getItems() {
+//		return items;
+//	}
+//	public void setItems(List<Item> items) {
+//		this.items = items;
+//	}
+	
+	
 }
