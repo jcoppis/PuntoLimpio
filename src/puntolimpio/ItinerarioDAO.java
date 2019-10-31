@@ -1,16 +1,11 @@
 package puntolimpio;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
-public class ItinerarioDAO implements DAO<Itinerario, Integer> {
+public class ItinerarioDAO extends ImplDAO<Itinerario, Integer> {
 
 	private static ItinerarioDAO daoItinerario;
 	
 	private ItinerarioDAO() {
-		
+		super(Itinerario.class, Integer.class);
 	}
     
 	public static ItinerarioDAO getInstance() {
@@ -18,47 +13,6 @@ public class ItinerarioDAO implements DAO<Itinerario, Integer> {
 			daoItinerario = new ItinerarioDAO();
 		return daoItinerario;
 	}
-	
-	@Override
-	public Itinerario findById(Integer id) {
-		EntityManager entityManager=EMF.createEntityManager();
-		Itinerario itinerario = entityManager.find(Itinerario.class, id);
-		entityManager.close();
-		return itinerario;
-	}
-
-	@Override
-	public Itinerario persist(Itinerario itinerario) {
-		EntityManager entityManager=EMF.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(itinerario);
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		return itinerario;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Itinerario> findAll() {
-		EntityManager entityManager=EMF.createEntityManager();
-		Query q = entityManager.createQuery("FROM Itinerario");
-		List<Itinerario> itinerarios = q.getResultList();
-		entityManager.close();
-		return itinerarios;
-	}
-
-	@Override
-	public Itinerario update(Integer id, Itinerario newEntityValues) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean delete(Integer id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	
 	public void llevarItemsLugarMasCercano() {
 		

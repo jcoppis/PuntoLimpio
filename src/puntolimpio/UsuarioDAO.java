@@ -1,16 +1,11 @@
 package puntolimpio;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
-public class UsuarioDAO implements DAO<Usuario, Integer> {
+public class UsuarioDAO extends ImplDAO<Usuario, Integer> {
 
 	private static UsuarioDAO daoUsuario;
 	
 	private UsuarioDAO() {
-		
+		super(Usuario.class, Integer.class);
 	}
     
 	public static UsuarioDAO getInstance() {
@@ -18,45 +13,4 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
 			daoUsuario = new UsuarioDAO();
 		return daoUsuario;
 	}
-	
-	@Override
-	public Usuario findById(Integer id) {
-		EntityManager entityManager=EMF.createEntityManager();
-		Usuario usuario = entityManager.find(Usuario.class, id);
-		entityManager.close();
-		return usuario;
-	}
-
-	@Override
-	public Usuario persist(Usuario usuario) {
-		EntityManager entityManager=EMF.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(usuario);
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		return usuario;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Usuario> findAll() {
-		EntityManager entityManager=EMF.createEntityManager();
-		Query q = entityManager.createQuery("FROM Usuario");
-		List<Usuario> usuarios = q.getResultList();
-		entityManager.close();
-		return usuarios;
-	}
-
-	@Override
-	public Usuario update(Integer id, Usuario newEntityValues) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean delete(Integer id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

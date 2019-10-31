@@ -78,6 +78,4 @@ public class UserItem {
 		return "UserItem [id=" + id + ", usuario=" + usuario + ", item=" + item + ", puntoRecoleccion="
 				+ puntoRecoleccion + ", cantidad=" + cantidad + ", fechaReciclaje=" + fechaReciclaje + "]";
 	}
-
-	
 }

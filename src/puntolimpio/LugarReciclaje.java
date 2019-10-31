@@ -48,5 +48,4 @@ public class LugarReciclaje {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-
 }

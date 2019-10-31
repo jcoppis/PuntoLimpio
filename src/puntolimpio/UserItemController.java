@@ -39,7 +39,7 @@ public class UserItemController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<UserItem> getItemsByUserId(@PathParam("id") String msg) {
 		int id = Integer.valueOf(msg);
-		List<UserItem> useritem = UserItemDAO.getInstance().findUserById(id);
+		List<UserItem> useritem = (List<UserItem>) UserItemDAO.getInstance().findById(id);
 		if(useritem != null)
 			return useritem;
 		else
