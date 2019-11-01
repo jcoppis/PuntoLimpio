@@ -1,9 +1,5 @@
 package puntolimpio;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 public class PuntoRecoleccionDAO extends ImplDAO<PuntoRecoleccion, Integer> {
 

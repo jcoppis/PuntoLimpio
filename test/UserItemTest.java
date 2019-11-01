@@ -33,10 +33,12 @@ public class UserItemTest {
 
 	  Map<String, String> properties = new HashMap<>();
 
-		properties.put("javax.persistence.jdbc.driver", "com.mysql.jdbc.Driver");
-		properties.put("javax.persistence.jdbc.url", "jdbc:mysql://localhost:3306/puntolimpio?createDatabaseIfNotExist=true");
-		properties.put("javax.persistence.jdbc.user", "root");
-		properties.put("javax.persistence.jdbc.password", "secret");
+	    properties.put("javax.persistence.jdbc.driver", "org.apache.derby.jdbc.EmbeddedDriver");
+	    properties.put("javax.persistence.jdbc.url", "jdbc:derby:derbyDB;create=true");
+	    properties.put("javax.persistence.jdbc.user", "root");
+	    properties.put("javax.persistence.jdbc.password", "");
+		
+	    properties.put("hibernate.hbm2ddl.auto", "create");
 		properties.put("javax.persistence.transactionType", "RESOURCE_LOCAL");
 
 		properties.put("hibernate.show_sql", "true");
