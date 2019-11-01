@@ -13,6 +13,7 @@ public class PuntoRecoleccion {
 	
 	private double latitude;
 	private double longitude;
+	private int cantNecesariaParaRecoleccion;
 
 //	@OneToMany(mappedBy="puntoRecoleccion", fetch=FetchType.LAZY)
 //	private List<UserItem> itemsArecolectar;
@@ -44,6 +45,13 @@ public class PuntoRecoleccion {
 		this.longitude = longitude;
 	}
 
+	public int getCantNecesariaParaRecoleccion() {
+		return cantNecesariaParaRecoleccion;
+	}
+
+	public void setCantNecesariaParaRecoleccion(int cantNecesariaParaRecoleccion) {
+		this.cantNecesariaParaRecoleccion = cantNecesariaParaRecoleccion;
+	}
 
 //	public List<UserItem> getItemsArecolectar() {
 //		return itemsArecolectar;

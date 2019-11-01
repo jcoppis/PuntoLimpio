@@ -1,11 +1,8 @@
 package puntolimpio;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
 @Entity
 public class LugarReciclaje {
@@ -17,9 +14,6 @@ public class LugarReciclaje {
 	private String nombre;
 	private double latitude;
 	private double longitude;
-	
-	@ManyToMany
-	private List<Item> items;
 	
 	public int getId() {
 		return id;
@@ -48,5 +42,4 @@ public class LugarReciclaje {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-
 }

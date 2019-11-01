@@ -3,6 +3,7 @@ package puntolimpio;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
 @Entity
 public class Item {
 	@Id
@@ -12,9 +13,6 @@ public class Item {
 	private int volumen;
 	private String tipo;
 	private String nombre;
-	
-//	@OneToMany(mappedBy = "item", fetch=FetchType.LAZY)
-//	private List<UserItem> userItems;
 
 	public int getId() {
 		return id;
@@ -48,11 +46,9 @@ public class Item {
 		this.nombre = nombre;
 	}
 
-//	public List<UserItem> getUserItems() {
-//		return userItems;
-//	}
-//
-//	public void setUserItems(List<UserItem> userItems) {
-//		this.userItems = userItems;
-//	}
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", volumen=" + volumen + ", tipo=" + tipo + ", nombre=" + nombre + "]";
+	}
+
 }
