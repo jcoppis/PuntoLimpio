@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -17,11 +16,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import puntolimpio.Item;
-import puntolimpio.PuntoRecoleccion;
-import puntolimpio.UserItem;
-import puntolimpio.UserItemDAO;
-import puntolimpio.Usuario;
+import item.Item;
+import puntorecoleccion.PuntoRecoleccion;
+import reporte.UserItem;
+import reporte.UserItemDAO;
+import usuario.Usuario;
 
 public class UserItemTest {
 	private static EntityManagerFactory emf;

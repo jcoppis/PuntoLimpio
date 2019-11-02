@@ -1,4 +1,4 @@
-package puntolimpio;
+package usuario;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/usuarios")
+@Path("/")
 public class UsuarioController {
 
 	

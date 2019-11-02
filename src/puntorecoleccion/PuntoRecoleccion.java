@@ -1,4 +1,4 @@
-package puntolimpio;
+package puntorecoleccion;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

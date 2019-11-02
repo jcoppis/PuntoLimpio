@@ -15,8 +15,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import puntolimpio.Usuario;
-import puntolimpio.UsuarioDAO;
+import usuario.Usuario;
+import usuario.UsuarioDAO;
 
 public class UsuarioTest {
 	private static EntityManagerFactory emf;

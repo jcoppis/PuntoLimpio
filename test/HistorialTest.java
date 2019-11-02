@@ -15,12 +15,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import puntolimpio.Historial;
-import puntolimpio.HistorialDAO;
-import puntolimpio.Item;
-import puntolimpio.LugarReciclaje;
-import puntolimpio.UserItem;
-import puntolimpio.Usuario;
+import historial.Historial;
+import historial.HistorialDAO;
+import item.Item;
+import lugarreciclaje.LugarReciclaje;
 
 public class HistorialTest {
 	private static EntityManagerFactory emf;

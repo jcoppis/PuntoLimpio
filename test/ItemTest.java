@@ -15,8 +15,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import puntolimpio.Item;
-import puntolimpio.itemDAO;
+import item.Item;
+import item.itemDAO;
 
 public class ItemTest {
 	private static EntityManagerFactory emf;

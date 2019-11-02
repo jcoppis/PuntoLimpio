@@ -1,10 +1,16 @@
-package puntolimpio;
+package reporte;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
+import item.Item;
+import puntolimpio.EMF;
+import puntolimpio.ImplDAO;
+import puntorecoleccion.PuntoRecoleccion;
+import usuario.Usuario;
 
 public class UserItemDAO extends ImplDAO<UserItem, Integer> {
 

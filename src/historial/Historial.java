@@ -1,4 +1,4 @@
-package puntolimpio;
+package historial;
 
 import java.sql.Timestamp;
 
@@ -10,6 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import item.Item;
+import lugarreciclaje.LugarReciclaje;
 
 @Entity
 @Table(name="historial")

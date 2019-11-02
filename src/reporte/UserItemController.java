@@ -1,4 +1,4 @@
-package puntolimpio;
+package reporte;
 
 import java.util.List;
 
@@ -11,6 +11,10 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import item.Item;
+import usuario.Usuario;
+import usuario.UsuarioDAO;
 
 @Path("/useritems")
 public class UserItemController {
