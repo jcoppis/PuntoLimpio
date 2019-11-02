@@ -29,7 +29,16 @@ public class Historial {
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
 	private Timestamp fechaReciclaje;
 	
+	private int cantidad;
 	
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
 	public Item getItem() {
 		return item;
 	}

@@ -9,7 +9,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -18,7 +20,7 @@ import puntolimpio.itemDAO;
 
 public class ItemTest {
 	private static EntityManagerFactory emf;
-
+	private static EntityManager entityManager;
 	@BeforeClass
 	public static void init() {
 
@@ -32,7 +34,7 @@ public class ItemTest {
 		properties.put("hibernate.hbm2ddl.auto", "create");
 		properties.put("javax.persistence.transactionType", "RESOURCE_LOCAL");
 
-		properties.put("hibernate.show_sql", "true");
+		properties.put("hibernate.show_sql", "false");
 
 		emf = Persistence.createEntityManagerFactory("my_persistence_unit", properties);
 
@@ -42,9 +44,19 @@ public class ItemTest {
 	public static void close() {
 		emf.close();
 	}
-
+	
 	static itemDAO itemDao = itemDAO.getInstance();
-
+	@Before
+	public void createEm(){
+		entityManager= emf.createEntityManager();
+	}
+	
+	
+	@After
+	public void closeEm() {
+		entityManager.close();
+	}
+	
 	@Test
 	public void isNotRecyclable() {
 		Item item = new Item();
@@ -53,7 +65,6 @@ public class ItemTest {
 		item.setTipo("aluminio");
 		item.setVolumen(120);
 
-		EntityManager entityManager = emf.createEntityManager();
 		Query q = entityManager.createQuery("FROM Item i WHERE i.tipo = :tipoItem AND i.nombre = :nombreItem");
 		q.setParameter("tipoItem", item.getTipo());
 		q.setParameter("nombreItem", item.getNombre());
@@ -63,7 +74,6 @@ public class ItemTest {
 
 	@Test
 	public void isRecyclable() {
-		EntityManager entityManager = emf.createEntityManager();
 		Item item = entityManager.find(Item.class, 1);
 		String itemTipo = item.getTipo();
 		String itemNombre = item.getNombre();
