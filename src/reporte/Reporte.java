@@ -16,7 +16,7 @@ import puntorecoleccion.PuntoRecoleccion;
 import usuario.Usuario;
 
 @Entity
-@Table(name="user_item")
+@Table(name="reporte")
 public class Reporte {
 
 	@Id
@@ -33,7 +33,14 @@ public class Reporte {
 	private PuntoRecoleccion puntoRecoleccion;
 
 	private int cantidad;
+	private boolean recycled;
 
+	public boolean isRecycled() {
+		return recycled;
+	}
+	public void setRecycled(boolean recycled) {
+		this.recycled = recycled;
+	}
 	@Column(name="fecha_reciclaje")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
 	private Timestamp fechaReciclaje;

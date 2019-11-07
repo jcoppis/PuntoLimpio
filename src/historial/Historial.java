@@ -7,12 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import item.Item;
 import lugarreciclaje.LugarReciclaje;
+import reporte.Reporte;
 
 @Entity
 @Table(name="historial")
@@ -23,8 +25,8 @@ public class Historial {
 	private int id;
 	
 	
-	@ManyToOne
-	private Item item;
+	@OneToOne
+	private Reporte reporte;
 	@ManyToOne
 	private LugarReciclaje lugarReciclaje;
 
@@ -42,12 +44,12 @@ public class Historial {
 		this.cantidad = cantidad;
 	}
 
-	public Item getItem() {
-		return item;
+	public Reporte getReporte() {
+		return reporte;
 	}
 
-	public void setItem(Item item) {
-		this.item = item;
+	public void setReporte(Reporte reporte) {
+		this.reporte = reporte;
 	}
 
 	public LugarReciclaje getlReciclaje() {
@@ -68,7 +70,7 @@ public class Historial {
 
 	@Override
 	public String toString() {
-		return "Historial [id=" + id + ", item=" + item + ", lugarReciclaje=" + lugarReciclaje + ", fechaReciclaje="
+		return "Historial [id=" + id + ", reporte=" + reporte + ", lugarReciclaje=" + lugarReciclaje + ", fechaReciclaje="
 				+ fechaReciclaje + "]";
 	}
 
