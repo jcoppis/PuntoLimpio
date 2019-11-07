@@ -1,4 +1,6 @@
-package puntolimpio;
+package usuario;
+
+import puntolimpio.ImplDAO;
 
 public class UsuarioDAO extends ImplDAO<Usuario, Integer> {
 

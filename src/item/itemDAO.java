@@ -1,8 +1,11 @@
-package puntolimpio;
+package item;
 
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
+import puntolimpio.EMF;
+import puntolimpio.ImplDAO;
 public class itemDAO extends ImplDAO<Item, Integer>{
 
 		private static itemDAO daoItem;

@@ -1,5 +1,6 @@
-package puntolimpio;
+package puntorecoleccion;
 
+import puntolimpio.ImplDAO;
 
 public class PuntoRecoleccionDAO extends ImplDAO<PuntoRecoleccion, Integer> {
 
