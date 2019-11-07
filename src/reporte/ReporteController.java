@@ -16,14 +16,14 @@ import item.Item;
 import usuario.Usuario;
 import usuario.UsuarioDAO;
 
-@Path("/useritems")
-public class UserItemController {
+@Path("/")
+public class ReporteController {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createUsuarItem(UserItem usuario) {
-		UserItem result = UserItemDAO.getInstance().persist(usuario);
+	public Response createUsuarItem(Reporte usuario) {
+		Reporte result = ReporteDAO.getInstance().persist(usuario);
 		if (result == null) {
 			throw new RecursoDuplicado(usuario.getId());
 		} else {
@@ -33,8 +33,8 @@ public class UserItemController {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<UserItem> getAllUserItems() {
-		return UserItemDAO.getInstance().findAll();
+	public List<Reporte> getAllReportes() {
+		return ReporteDAO.getInstance().findAll();
 	}
 
 	@GET
@@ -44,7 +44,7 @@ public class UserItemController {
 		int id = Integer.valueOf(msg);
 
 		Usuario usuario = UsuarioDAO.getInstance().findById(id);
-		List<Item> items = UserItemDAO.getInstance().findItemsByUser(usuario);
+		List<Item> items = ReporteDAO.getInstance().findItemsByUser(usuario);
 		if (items != null)
 			return items;
 		else

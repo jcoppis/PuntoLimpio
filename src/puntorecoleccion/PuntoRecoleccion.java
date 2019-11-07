@@ -16,7 +16,7 @@ public class PuntoRecoleccion {
 	private int cantNecesariaParaRecoleccion;
 
 //	@OneToMany(mappedBy="puntoRecoleccion", fetch=FetchType.LAZY)
-//	private List<UserItem> itemsArecolectar;
+//	private List<Reporte> itemsArecolectar;
 
 	
 	public int getId() {
@@ -53,12 +53,12 @@ public class PuntoRecoleccion {
 		this.cantNecesariaParaRecoleccion = cantNecesariaParaRecoleccion;
 	}
 
-//	public List<UserItem> getItemsArecolectar() {
+//	public List<Reporte> getItemsArecolectar() {
 //		return itemsArecolectar;
 //	}
 //
 //
-//	public void setItemsArecolectar(List<UserItem> itemsArecolectar) {
+//	public void setItemsArecolectar(List<Reporte> itemsArecolectar) {
 //		this.itemsArecolectar = itemsArecolectar;
 //	}
 

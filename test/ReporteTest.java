@@ -18,11 +18,11 @@ import org.junit.Test;
 
 import item.Item;
 import puntorecoleccion.PuntoRecoleccion;
-import reporte.UserItem;
-import reporte.UserItemDAO;
+import reporte.Reporte;
+import reporte.ReporteDAO;
 import usuario.Usuario;
 
-public class UserItemTest {
+public class ReporteTest {
 	private static EntityManagerFactory emf;
 	private static EntityManager entityManager;
 	@BeforeClass
@@ -132,7 +132,7 @@ public class UserItemTest {
 		Timestamp time3 = Timestamp.valueOf("2019-01-26 00:00:00.0");
 		Timestamp time4 = Timestamp.valueOf("2019-04-03 00:00:00.0");
 		
-		UserItem Ui1 = new UserItem();
+		Reporte Ui1 = new Reporte();
 		Ui1.setId(0);
 		Ui1.setCantidad(2);
 		Ui1.setFechaReciclaje(time1);
@@ -140,7 +140,7 @@ public class UserItemTest {
 		Ui1.setPuntoRecoleccion(p2);
 		Ui1.setUsuario(user2);
 		
-		UserItem Ui2 = new UserItem();
+		Reporte Ui2 = new Reporte();
 		Ui2.setId(0);
 		Ui2.setCantidad(2);
 		Ui2.setFechaReciclaje(time3);
@@ -148,7 +148,7 @@ public class UserItemTest {
 		Ui2.setPuntoRecoleccion(p1);
 		Ui2.setUsuario(user2);
 		
-		UserItem Ui3 = new UserItem();
+		Reporte Ui3 = new Reporte();
 		Ui3.setId(0);
 		Ui3.setCantidad(3);
 		Ui3.setFechaReciclaje(time4);
@@ -156,7 +156,7 @@ public class UserItemTest {
 		Ui3.setPuntoRecoleccion(p3);
 		Ui3.setUsuario(user2);
 		
-		UserItem Ui4 = new UserItem();
+		Reporte Ui4 = new Reporte();
 		Ui4.setId(0);
 		Ui4.setCantidad(1);
 		Ui4.setFechaReciclaje(time2);
@@ -201,7 +201,7 @@ public class UserItemTest {
 		emf.close();
 	}
 
-	static UserItemDAO userItemDAO = UserItemDAO.getInstance();
+	static ReporteDAO reporteDAO = ReporteDAO.getInstance();
 	
 	
 	@Before
@@ -218,10 +218,10 @@ public class UserItemTest {
 		qUser.setParameter("name", "Juan");
 		List<Usuario> users = qUser.getResultList();
 		
-		Query qUitem = entityManager.createQuery("FROM UserItem ui WHERE ui.usuario = :user");
+		Query qUitem = entityManager.createQuery("FROM Reporte ui WHERE ui.usuario = :user");
 		qUitem.setParameter("user", users.get(0));
-		List<UserItem> userItems = qUitem.getResultList();
-		assertEquals(userItems.size(), 4);
+		List<Reporte> reportes = qUitem.getResultList();
+		assertEquals(reportes.size(), 4);
 	}
 
 	@Test
@@ -234,12 +234,12 @@ public class UserItemTest {
 		List<Usuario> users = qUser.getResultList();
 		
 		Query qUitem = entityManager.createQuery
-				("FROM UserItem ui WHERE ui.usuario = :user AND ui.fechaReciclaje BETWEEN :date1 AND :date2");
+				("FROM Reporte ui WHERE ui.usuario = :user AND ui.fechaReciclaje BETWEEN :date1 AND :date2");
 		qUitem.setParameter("user", users.get(0));
 		qUitem.setParameter("date1", time1);
 		qUitem.setParameter("date2", time2);
-		List<UserItem> userItems = qUitem.getResultList();
-		assertEquals(userItems.size(), 3);
+		List<Reporte> reportes = qUitem.getResultList();
+		assertEquals(reportes.size(), 3);
 	}
 	
 	@Test 
@@ -252,15 +252,15 @@ public class UserItemTest {
 		List<Usuario> users = qUser.getResultList();
 		
 		Query qUitem = entityManager.createQuery
-				("FROM UserItem ui WHERE ui.usuario = :user AND ui.fechaReciclaje BETWEEN :date1 AND :date2");
+				("FROM Reporte ui WHERE ui.usuario = :user AND ui.fechaReciclaje BETWEEN :date1 AND :date2");
 		qUitem.setParameter("user", users.get(0));
 		qUitem.setParameter("date1", time1);
 		qUitem.setParameter("date2", time2);
-		List<UserItem> userItems = qUitem.getResultList();
+		List<Reporte> reportes = qUitem.getResultList();
 		
-		for (UserItem userItem : userItems) {
-			ahorro+=(userItem.getItem().getVolumen()* userItem.getCantidad());
-			//System.out.println(userItem.getItem().toString()); 
+		for (Reporte reporte : reportes) {
+			ahorro+=(reporte.getItem().getVolumen()* reporte.getCantidad());
+			//System.out.println(reporte.getItem().toString()); 
 			}
 		System.out.println(ahorro);
 		assertEquals(ahorro , 1790);
@@ -276,11 +276,11 @@ public class UserItemTest {
 		List<Usuario> users = qUser.getResultList();
 		
 		Query qUitem = entityManager.createQuery
-				("FROM UserItem ui WHERE ui.usuario = :user");
+				("FROM Reporte ui WHERE ui.usuario = :user");
 		qUitem.setParameter("user", users.get(0));
-		List<UserItem> userItems = qUitem.getResultList();
-		for (UserItem userItem : userItems) {
-			ahorro+=(userItem.getItem().getVolumen()* userItem.getCantidad());
+		List<Reporte> reportes = qUitem.getResultList();
+		for (Reporte reporte : reportes) {
+			ahorro+=(reporte.getItem().getVolumen()* reporte.getCantidad());
 		}
 		System.out.println(ahorro);
 		assertEquals(ahorro , 1990);

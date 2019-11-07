@@ -12,17 +12,17 @@ import puntolimpio.ImplDAO;
 import puntorecoleccion.PuntoRecoleccion;
 import usuario.Usuario;
 
-public class UserItemDAO extends ImplDAO<UserItem, Integer> {
+public class ReporteDAO extends ImplDAO<Reporte, Integer> {
 
-	private static UserItemDAO daoItem;
+	private static ReporteDAO daoItem;
 
-	private UserItemDAO() {
-		super(UserItem.class, Integer.class);
+	private ReporteDAO() {
+		super(Reporte.class, Integer.class);
 	}
 
-	public static UserItemDAO getInstance() {
+	public static ReporteDAO getInstance() {
 		if (daoItem == null)
-			daoItem = new UserItemDAO();
+			daoItem = new ReporteDAO();
 		return daoItem;
 	}
 	
@@ -30,10 +30,10 @@ public class UserItemDAO extends ImplDAO<UserItem, Integer> {
 	public List<Item> findItemsByUser(Usuario usuario) {
 		EntityManager entityManager = EMF.createEntityManager();
 		
-		Query q = entityManager.createQuery("FROM UserItem ui WHERE ui.usuario = :user");
+		Query q = entityManager.createQuery("FROM Reporte ui WHERE ui.usuario = :user");
 		q.setParameter("user", usuario);
-		List<UserItem> userItems = q.getResultList();
-		List<Item> items = userItems.stream().map(u -> u.getItem()).collect(Collectors.toList());
+		List<Reporte> reportes = q.getResultList();
+		List<Item> items = reportes.stream().map(u -> u.getItem()).collect(Collectors.toList());
 		return items;
 	}
 
@@ -41,9 +41,9 @@ public class UserItemDAO extends ImplDAO<UserItem, Integer> {
 		EntityManager entityManager = EMF.createEntityManager();
 		PuntoRecoleccion res = entityManager.find(PuntoRecoleccion.class, pr.getId());
 		int cantNec = res.getCantNecesariaParaRecoleccion();
-		Query q = entityManager.createQuery("FROM UserItem ui WHERE ui.puntoRecoleccion = :prId");
+		Query q = entityManager.createQuery("FROM Reporte ui WHERE ui.puntoRecoleccion = :prId");
 		q.setParameter("prId", pr.getId());
-		List<UserItem> useritems = q.getResultList();
+		List<Reporte> useritems = q.getResultList();
 		entityManager.close();
 		int totalVolume = useritems.stream().mapToInt(x -> x.getItem().getVolumen()).sum();
 		return totalVolume > cantNec;

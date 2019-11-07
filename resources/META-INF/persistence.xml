@@ -6,7 +6,7 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>usuario.Usuario</class>
 		<class>item.Item</class>
-		<class>reporte.UserItem</class>
+		<class>reporte.Reporte</class>
 		<class>puntorecoleccion.PuntoRecoleccion</class>
 		<class>historial.Historial</class>
 		<class>lugarreciclaje.LugarReciclaje</class>

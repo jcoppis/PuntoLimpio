@@ -17,7 +17,7 @@ import usuario.Usuario;
 
 @Entity
 @Table(name="user_item")
-public class UserItem {
+public class Reporte {
 
 	@Id
 	@GeneratedValue
@@ -76,7 +76,7 @@ public class UserItem {
 	}
 	@Override
 	public String toString() {
-		return "UserItem [id=" + id + ", usuario=" + usuario + ", item=" + item + ", puntoRecoleccion="
+		return "Reporte [id=" + id + ", usuario=" + usuario + ", item=" + item + ", puntoRecoleccion="
 				+ puntoRecoleccion + ", cantidad=" + cantidad + ", fechaReciclaje=" + fechaReciclaje + "]";
 	}
 }
