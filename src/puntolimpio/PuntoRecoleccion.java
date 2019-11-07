@@ -8,7 +8,6 @@ import javax.persistence.Id;
 public class PuntoRecoleccion {
 
 	@Id
-	@GeneratedValue
 	private int id;
 	
 	private double latitude;
@@ -51,6 +50,12 @@ public class PuntoRecoleccion {
 
 	public void setCantNecesariaParaRecoleccion(int cantNecesariaParaRecoleccion) {
 		this.cantNecesariaParaRecoleccion = cantNecesariaParaRecoleccion;
+	}
+	
+
+	@Override
+	public String toString() {
+		return "Lat: " + this.getLatitude() + " Long: " + this.getLongitude();
 	}
 
 //	public List<UserItem> getItemsArecolectar() {

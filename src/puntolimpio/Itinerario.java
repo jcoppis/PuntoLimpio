@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Itinerario {
 
 	@Id
-	@GeneratedValue
 	private int id;
 	
 	private int idCamion;

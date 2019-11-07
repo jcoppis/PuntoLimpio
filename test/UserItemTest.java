@@ -16,8 +16,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import puntolimpio.Item;
+import puntolimpio.PuntoRecoleccion;
 import puntolimpio.UserItem;
-import puntolimpio.UserItemDAO;
 import puntolimpio.Usuario;
 
 public class UserItemTest {
@@ -46,8 +46,6 @@ public class UserItemTest {
 	public static void close() {
 		emf.close();
 	}
-
-	static UserItemDAO userItemDAO = UserItemDAO.getInstance();
 
 	@Test
 	public void itemsByUser() {
@@ -80,12 +78,35 @@ public class UserItemTest {
 		q.setParameter("date1", timestamp);
 		q.setParameter("date2", timestamp2);
 		List<UserItem> userItems = q.getResultList();
+		List<Item> items = userItems.stream().map(u -> u.getItem()).collect(Collectors.toList());
+
 		System.out.println("items del usuario con id 1 entre 1 ene y 21 oct: ");
 		userItems.stream().forEach(elem -> {
 			System.out.print(elem.getItem());
 			System.out.println(elem.getFechaReciclaje());
 		});
-		assertTrue(userItems.size() > 0);
+
+		assertTrue(items.size() > 0);
 	}
 
+	@Test
+	public void isReadyForSend() {
+		int puntoRecoleccionId = 1;
+		EntityManager entityManager = emf.createEntityManager();
+		PuntoRecoleccion res = entityManager.find(PuntoRecoleccion.class, puntoRecoleccionId);
+
+		boolean isReadyForSend;
+		if (res != null) {
+			int cantNec = res.getCantNecesariaParaRecoleccion();
+			Query q = entityManager.createQuery("FROM UserItem ui WHERE ui.puntoRecoleccion = :prId");
+			q.setParameter("prId", puntoRecoleccionId);
+			List<UserItem> useritems = q.getResultList();
+			entityManager.close();
+			int totalVolume = useritems.stream().mapToInt(x -> x.getItem().getVolumen()).sum();
+			isReadyForSend = totalVolume > cantNec;
+		} else {
+			isReadyForSend = false;
+		}
+		assertTrue(!isReadyForSend);
+	}
 }

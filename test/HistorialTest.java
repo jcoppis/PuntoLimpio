@@ -14,7 +14,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import puntolimpio.Historial;
-import puntolimpio.HistorialDAO;
 import puntolimpio.Item;
 import puntolimpio.LugarReciclaje;
 
@@ -44,8 +43,6 @@ public class HistorialTest {
 	public static void close() {
 		emf.close();
 	}
-
-	static HistorialDAO itemDao = HistorialDAO.getInstance();
 
 	@Test
 	public void itemsByRecycleSiteAndRangeOfDates() {

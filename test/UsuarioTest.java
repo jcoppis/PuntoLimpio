@@ -14,7 +14,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import puntolimpio.Usuario;
-import puntolimpio.UsuarioDAO;
 
 public class UsuarioTest {
 	private static EntityManagerFactory emf;
@@ -42,8 +41,6 @@ public class UsuarioTest {
 	public static void close() {
 		emf.close();
 	}
-
-	static UsuarioDAO userDAO = UsuarioDAO.getInstance();
 
 	@Test
 	public void usuarioFindByIdTest() {

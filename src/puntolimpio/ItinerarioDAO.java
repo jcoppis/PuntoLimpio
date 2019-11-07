@@ -1,5 +1,11 @@
 package puntolimpio;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 public class ItinerarioDAO extends ImplDAO<Itinerario, Integer> {
 
 	private static ItinerarioDAO daoItinerario;
@@ -16,6 +22,16 @@ public class ItinerarioDAO extends ImplDAO<Itinerario, Integer> {
 	
 	public void llevarItemsLugarMasCercano() {
 		
+	}
+	
+	public List<Itinerario> getItinerario(PuntoRecoleccion puntoRecoleccion){
+		EntityManager entityManager = EMF.createEntityManager();
+
+		Query q = entityManager.createQuery("FROM Itinerario i WHERE i.puntoRecoleccion = :puntoRecoleccion");
+		q.setParameter("puntoRecoleccion", puntoRecoleccion);
+		List<Itinerario> itinerario = q.getResultList();
+		entityManager.close();
+		return itinerario;
 	}
 
 }

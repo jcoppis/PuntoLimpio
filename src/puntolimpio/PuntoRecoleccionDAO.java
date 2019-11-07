@@ -1,5 +1,7 @@
 package puntolimpio;
 
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class PuntoRecoleccionDAO extends ImplDAO<PuntoRecoleccion, Integer> {
 
@@ -15,7 +17,23 @@ public class PuntoRecoleccionDAO extends ImplDAO<PuntoRecoleccion, Integer> {
 		return daoPuntoRecoleccion;
 	}
 
-	public int volumenNecesario() {
-		return 0;
-	}
+	public PuntoRecoleccion getPuntoMasCercano(double latitude, double longitude) {
+        List<PuntoRecoleccion> puntosRecoleccion = daoPuntoRecoleccion.findAll();
+        
+        PuntoRecoleccion minPuntoRecoleccion = null;
+        double cercania = 0;
+        for(PuntoRecoleccion p : puntosRecoleccion) {
+        	if (minPuntoRecoleccion == null) { 
+        		minPuntoRecoleccion = p; 
+        		cercania = (p.getLatitude() - latitude) * (p.getLatitude() - latitude) + (p.getLongitude() - longitude) * (p.getLongitude() - longitude);
+        	}
+        	
+        	if (((p.getLatitude() - latitude) * (p.getLatitude() - latitude) + (p.getLongitude() - longitude) * (p.getLongitude() - longitude))
+        			< cercania) {        		
+        		minPuntoRecoleccion = p;
+        		cercania = (p.getLatitude() - latitude) * (p.getLatitude() - latitude) + (p.getLongitude() - longitude) * (p.getLongitude() - longitude);
+        	}
+        }
+        return minPuntoRecoleccion;
+    }
 }

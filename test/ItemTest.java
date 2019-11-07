@@ -14,7 +14,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import puntolimpio.Item;
-import puntolimpio.itemDAO;
 
 public class ItemTest {
 	private static EntityManagerFactory emf;
@@ -42,8 +41,6 @@ public class ItemTest {
 	public static void close() {
 		emf.close();
 	}
-
-	static itemDAO itemDao = itemDAO.getInstance();
 
 	@Test
 	public void isNotRecyclable() {
