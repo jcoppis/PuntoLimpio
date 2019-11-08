@@ -45,7 +45,6 @@ public class UsuarioTest {
 		emf.close();
 	}
 	
-	
 	static UsuarioDAO userDAO = UsuarioDAO.getInstance();
 	
 	@Before
@@ -57,6 +56,7 @@ public class UsuarioTest {
 	public void closeEm() {
 		entityManager.close();
 	}
+	
 	@Test
 	public void usuarioFindByIdTest() {
 		Usuario user = new Usuario();

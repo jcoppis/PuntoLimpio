@@ -33,6 +33,7 @@ public class Reporte {
 	private PuntoRecoleccion puntoRecoleccion;
 
 	private int cantidad;
+
 	private boolean recycled;
 
 	public boolean isRecycled() {

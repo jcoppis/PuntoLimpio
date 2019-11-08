@@ -27,6 +27,7 @@ public class Historial {
 	
 	@OneToOne
 	private Reporte reporte;
+
 	@ManyToOne
 	private LugarReciclaje lugarReciclaje;
 

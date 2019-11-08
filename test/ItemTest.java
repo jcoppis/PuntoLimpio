@@ -53,6 +53,7 @@ public class ItemTest {
 	public static void close() {
 		emf.close();
 	}
+
 	
 	static itemDAO itemDao = itemDAO.getInstance();
 	@Before

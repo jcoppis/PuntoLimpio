@@ -52,6 +52,12 @@ public class PuntoRecoleccion {
 	public void setCantNecesariaParaRecoleccion(int cantNecesariaParaRecoleccion) {
 		this.cantNecesariaParaRecoleccion = cantNecesariaParaRecoleccion;
 	}
+	
+
+	@Override
+	public String toString() {
+		return "Lat: " + this.getLatitude() + " Long: " + this.getLongitude();
+	}
 
 //	public List<Reporte> getItemsArecolectar() {
 //		return itemsArecolectar;

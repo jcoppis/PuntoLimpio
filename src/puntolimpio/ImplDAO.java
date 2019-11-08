@@ -14,6 +14,7 @@ public class ImplDAO<Entity, ID extends Serializable> implements DAO<Entity, ID>
 	public ImplDAO(Class<Entity> entityClass, Class<ID> idClass) {
 		this.entityClass = entityClass;
 		this.idClass = idClass;
+		System.out.println(this.entityClass.getSimpleName());
 	}
 
 	@Override
