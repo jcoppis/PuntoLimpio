@@ -1,4 +1,6 @@
-package puntolimpio;
+package lugarreciclaje;
+
+import puntolimpio.ImplDAO;
 
 public class LugarReciclajeDAO extends ImplDAO<LugarReciclaje, Integer> {
 	private static LugarReciclajeDAO daoLR;

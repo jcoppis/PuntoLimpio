@@ -1,4 +1,6 @@
-package puntolimpio;
+package historial;
+
+import puntolimpio.ImplDAO;
 
 public class HistorialDAO extends ImplDAO<Historial, Integer>{
 	private static HistorialDAO daoHistorial;

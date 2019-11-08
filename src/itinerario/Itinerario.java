@@ -1,4 +1,4 @@
-package puntolimpio;
+package itinerario;
 
 import java.sql.Timestamp;
 
@@ -9,10 +9,13 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import puntorecoleccion.PuntoRecoleccion;
+
 @Entity
 public class Itinerario {
 
 	@Id
+	@GeneratedValue
 	private int id;
 	
 	private int idCamion;

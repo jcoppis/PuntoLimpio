@@ -1,10 +1,14 @@
-package puntolimpio;
+package itinerario;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
+import puntolimpio.EMF;
+import puntolimpio.ImplDAO;
+import puntorecoleccion.PuntoRecoleccion;
 
 public class ItinerarioDAO extends ImplDAO<Itinerario, Integer> {
 

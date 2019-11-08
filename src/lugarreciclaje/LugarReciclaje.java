@@ -1,4 +1,4 @@
-package puntolimpio;
+package lugarreciclaje;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

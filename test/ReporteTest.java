@@ -1,4 +1,5 @@
 import static org.junit.Assert.*;
+
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -15,15 +16,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import historial.Historial;
-import historial.HistorialDAO;
 import item.Item;
-import lugarreciclaje.LugarReciclaje;
 import puntorecoleccion.PuntoRecoleccion;
 import reporte.Reporte;
+import reporte.ReporteDAO;
 import usuario.Usuario;
 
-public class HistorialTest {
+public class ReporteTest {
 	private static EntityManagerFactory emf;
 	private static EntityManager entityManager;
 	@BeforeClass
@@ -43,15 +42,6 @@ public class HistorialTest {
 
 		emf = Persistence.createEntityManagerFactory("my_persistence_unit", properties);
 		
-		
-		
-		LugarReciclaje lugarReciclajeAPersistir = new LugarReciclaje();
-
-		lugarReciclajeAPersistir.setId(0);
-		lugarReciclajeAPersistir.setLatitude(123.3);
-		lugarReciclajeAPersistir.setLongitude(432.4);
-		lugarReciclajeAPersistir.setNombre("lugar1");
-
 		Item i1 = new Item();
 		Item i2 = new Item();
 		Item i3 = new Item();
@@ -199,45 +189,11 @@ public class HistorialTest {
 		entityManager.persist(Ui2);
 		entityManager.persist(Ui3);
 		entityManager.persist(Ui4);
-
-		entityManager.persist(lugarReciclajeAPersistir);
-		entityManager.getTransaction().commit();
-
-		entityManager.getTransaction().begin();
-		Historial historial = new Historial();
-		historial.setReporte(Ui1);
-		historial.setlReciclaje(lugarReciclajeAPersistir);
-		historial.setCantidad(2);
-		Timestamp timestampHistorialPersist = Timestamp.valueOf("2019-02-01 00:00:00.0");
-		historial.setFechaReciclaje(timestampHistorialPersist);
-		entityManager.persist(historial);
-
-		Historial historial2 = new Historial();
-		historial2.setReporte(Ui2);
-		historial2.setlReciclaje(lugarReciclajeAPersistir);
-		historial2.setCantidad(2);
-		Timestamp timestampHistorialPersist2 = Timestamp.valueOf("2019-02-02 00:00:00.0");
-		historial2.setFechaReciclaje(timestampHistorialPersist2);
-		entityManager.persist(historial2);
-
-		Historial historial3 = new Historial();
-		historial3.setReporte(Ui3);
-		historial3.setlReciclaje(lugarReciclajeAPersistir);
-		historial3.setCantidad(1);
-		Timestamp timestampHistorialPersist3 = Timestamp.valueOf("2019-10-24 00:00:00.0");
-		historial3.setFechaReciclaje(timestampHistorialPersist3);
-		entityManager.persist(historial3);
-
-		Historial historial4 = new Historial();
-		historial4.setReporte(Ui4);
-		historial4.setlReciclaje(lugarReciclajeAPersistir);
-		historial4.setCantidad(2);
-		Timestamp timestampHistorialPersist4 = Timestamp.valueOf("2019-10-20 00:00:00.0");
-		historial4.setFechaReciclaje(timestampHistorialPersist4);
-		entityManager.persist(historial4);
+		
 		entityManager.getTransaction().commit();
 		entityManager.close();
-
+		
+		
 	}
 
 	@AfterClass
@@ -245,57 +201,92 @@ public class HistorialTest {
 		emf.close();
 	}
 
-	static HistorialDAO itemDao = HistorialDAO.getInstance();
+	static ReporteDAO reporteDAO = ReporteDAO.getInstance();
+	
 	
 	@Before
-	public void createEm(){
+	public void createEm() {
 		entityManager= emf.createEntityManager();
 	}
-	
-	
 	@After
 	public void closeEm() {
 		entityManager.close();
 	}
-	
 	@Test
-	public void itemsByRecycleSiteAndRangeOfDates() {
+	public void itemsByUser() {
+		Query qUser = entityManager.createQuery("FROM Usuario u WHERE u.nombre = :name");
+		qUser.setParameter("name", "Juan");
+		List<Usuario> users = qUser.getResultList();
 		
-		Query qLugarReciclaje = entityManager.createQuery("FROM LugarReciclaje lr WHERE lr.nombre = :lrNombre");
-		qLugarReciclaje.setParameter("lrNombre", "lugar1");
-		List<LugarReciclaje> lrRes = qLugarReciclaje.getResultList();
-		Timestamp timestamp = Timestamp.valueOf("2019-01-01 00:00:00.0");
-		Timestamp timestamp2 = Timestamp.valueOf("2019-10-21 00:00:00.0");
+		Query qUitem = entityManager.createQuery("FROM Reporte ui WHERE ui.usuario = :user");
+		qUitem.setParameter("user", users.get(0));
+		List<Reporte> reportes = qUitem.getResultList();
+		assertEquals(reportes.size(), 4);
+	}
 
-		Query q = entityManager.createQuery(
-				"FROM Historial h WHERE h.lugarReciclaje = :lr AND h.fechaReciclaje BETWEEN :date1 AND :date2");
-		q.setParameter("lr", lrRes.get(0));
-		q.setParameter("date1", timestamp);
-		q.setParameter("date2", timestamp2);
-		List<Historial> historialItems = q.getResultList();
-//		System.out.println("items del punto de reciclaje con nombre " + lugarReciclajeAPersistir.getNombre()
-//				+ " entre 1 ene y 21 oct: ");
-		historialItems.stream().forEach(elem -> {
-			System.out.print(elem.getReporte().getItem() + " ");
-			System.out.println(elem.getFechaReciclaje());
-		});
-		assertTrue(historialItems.size() == 3);
-//		entityManager.close();
-//		assertTrue(1 == 1);
+	@Test
+	public void itemsByUserAndRangeOfDates() {
+		Timestamp time1 = Timestamp.valueOf("2019-01-01 00:00:00.0");
+		Timestamp time2 = Timestamp.valueOf("2019-10-21 00:00:00.0");
+		
+		Query qUser = entityManager.createQuery("FROM Usuario u WHERE u.nombre = :name");
+		qUser.setParameter("name", "Juan");
+		List<Usuario> users = qUser.getResultList();
+		
+		Query qUitem = entityManager.createQuery
+				("FROM Reporte ui WHERE ui.usuario = :user AND ui.fechaReciclaje BETWEEN :date1 AND :date2");
+		qUitem.setParameter("user", users.get(0));
+		qUitem.setParameter("date1", time1);
+		qUitem.setParameter("date2", time2);
+		List<Reporte> reportes = qUitem.getResultList();
+		assertEquals(reportes.size(), 3);
+	}
+	
+	@Test 
+	public void ahorroPorFecha() {
+		Timestamp time1 = Timestamp.valueOf("2019-01-01 00:00:00.0");
+		Timestamp time2 = Timestamp.valueOf("2019-10-21 00:00:00.0");
+		int ahorro=0;
+		Query qUser = entityManager.createQuery("FROM Usuario u WHERE u.nombre = :name");
+		qUser.setParameter("name", "Juan");
+		List<Usuario> users = qUser.getResultList();
+		
+		Query qUitem = entityManager.createQuery
+				("FROM Reporte ui WHERE ui.usuario = :user AND ui.fechaReciclaje BETWEEN :date1 AND :date2");
+		qUitem.setParameter("user", users.get(0));
+		qUitem.setParameter("date1", time1);
+		qUitem.setParameter("date2", time2);
+		List<Reporte> reportes = qUitem.getResultList();
+		
+		for (Reporte reporte : reportes) {
+			ahorro+=(reporte.getItem().getVolumen()* reporte.getCantidad());
+			//System.out.println(reporte.getItem().toString()); 
+			}
+		System.out.println(ahorro);
+		assertEquals(ahorro , 1790);
+		
+		
 	}
 	
 	@Test
-	public void ahorroONG() {
+	public void ahorroTotal() {
 		int ahorro=0;
-		Query qHist = entityManager.createQuery("FROM Historial");
-		List<Historial> historiales = qHist.getResultList();
+		Query qUser = entityManager.createQuery("FROM Usuario u WHERE u.nombre = :name");
+		qUser.setParameter("name", "Juan");
+		List<Usuario> users = qUser.getResultList();
 		
-		for (Historial historial : historiales) {
-			System.out.println(historial.getReporte().getItem().getVolumen() +" " +historial.getCantidad() );
-			ahorro+=(historial.getReporte().getItem().getVolumen() * historial.getCantidad());
+		Query qUitem = entityManager.createQuery
+				("FROM Reporte ui WHERE ui.usuario = :user");
+		qUitem.setParameter("user", users.get(0));
+		List<Reporte> reportes = qUitem.getResultList();
+		for (Reporte reporte : reportes) {
+			ahorro+=(reporte.getItem().getVolumen()* reporte.getCantidad());
 		}
 		System.out.println(ahorro);
-		assertEquals(ahorro , 1490);
+		assertEquals(ahorro , 1990);
+		
 		
 	}
+
+
 }

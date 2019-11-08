@@ -9,15 +9,18 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import puntolimpio.Usuario;
+import usuario.Usuario;
+import usuario.UsuarioDAO;
 
 public class UsuarioTest {
 	private static EntityManagerFactory emf;
-
+	private static EntityManager entityManager;
 	@BeforeClass
 	public static void init() {
 
@@ -31,7 +34,7 @@ public class UsuarioTest {
 		properties.put("hibernate.hbm2ddl.auto", "create");
 		properties.put("javax.persistence.transactionType", "RESOURCE_LOCAL");
 
-		properties.put("hibernate.show_sql", "true");
+		properties.put("hibernate.show_sql", "false");
 
 		emf = Persistence.createEntityManagerFactory("my_persistence_unit", properties);
 
@@ -41,7 +44,19 @@ public class UsuarioTest {
 	public static void close() {
 		emf.close();
 	}
-
+	
+	static UsuarioDAO userDAO = UsuarioDAO.getInstance();
+	
+	@Before
+	public void createEm(){
+		entityManager= emf.createEntityManager();
+	}
+	
+	@After
+	public void closeEm() {
+		entityManager.close();
+	}
+	
 	@Test
 	public void usuarioFindByIdTest() {
 		Usuario user = new Usuario();
@@ -65,7 +80,6 @@ public class UsuarioTest {
 
 	@Test
 	public void usuarioDeleteTest() {
-		EntityManager entityManager = emf.createEntityManager();
 		entityManager.getTransaction().begin();
 		Query q = entityManager.createQuery("FROM Usuario u WHERE u.nombre = :usuario");
 		q.setParameter("usuario", "Pepito");
@@ -76,7 +90,10 @@ public class UsuarioTest {
 		Query q2 = entityManager.createQuery("FROM Usuario");
 		List<Usuario> usuariosNoTest = q2.getResultList();
 		entityManager.getTransaction().commit();
-		entityManager.close();
 		assertTrue(usuariosNoTest.size() == 0);
 	}
+	
+	
 }
+
+

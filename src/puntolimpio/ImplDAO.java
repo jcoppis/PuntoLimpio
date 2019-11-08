@@ -38,8 +38,7 @@ public class ImplDAO<Entity, ID extends Serializable> implements DAO<Entity, ID>
 	@Override
 	public List<Entity> findAll() {
 		EntityManager entityManager = EMF.createEntityManager();
-		Query q = entityManager.createQuery("FROM :entity");
-		q.setParameter("entity", this.entityClass.getSimpleName());
+		Query q = entityManager.createQuery("FROM " + this.entityClass.getSimpleName());
 		List<Entity> entitys = q.getResultList();
 		entityManager.close();
 		return entitys;
