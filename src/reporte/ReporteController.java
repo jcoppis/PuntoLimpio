@@ -1,5 +1,6 @@
 package reporte;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -7,6 +8,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
@@ -22,12 +24,12 @@ public class ReporteController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createUsuarItem(Reporte usuario) {
-		Reporte result = ReporteDAO.getInstance().persist(usuario);
+	public Response createReporte(Reporte reporte) {
+		Reporte result = ReporteDAO.getInstance().persist(reporte);
 		if (result == null) {
-			throw new RecursoDuplicado(usuario.getId());
+			throw new RecursoDuplicado(reporte.getId());
 		} else {
-			return Response.status(201).entity(usuario).build();
+			return Response.status(201).entity(reporte).build();
 		}
 	}
 
@@ -37,18 +39,57 @@ public class ReporteController {
 		return ReporteDAO.getInstance().findAll();
 	}
 
-	@GET
-	@Path("/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Item> getItemsByUserId(@PathParam("id") String msg) {
-		int id = Integer.valueOf(msg);
+//	@GET
+//	@Path("/getItems/usuario/{id}")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public List<Item> getItemsByUserId(@PathParam("id") String msg) {
+//		int id = Integer.valueOf(msg);
+//
+//		Usuario usuario = UsuarioDAO.getInstance().findById(id);
+//		List<Item> items = ReporteDAO.getInstance().findItemsByUser(usuario);
+//		if (items != null)
+//			return items;
+//		else
+//			throw new RecursoNoExiste(id);
+//	}
 
-		Usuario usuario = UsuarioDAO.getInstance().findById(id);
-		List<Item> items = ReporteDAO.getInstance().findItemsByUser(usuario);
-		if (items != null)
+	@GET
+	@Path("/getItems/usuario/{userId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Item> getItemsByUserAndRangeOfDates(@PathParam("userId") String userId,
+			@QueryParam("startingDate") Timestamp startingDate, @QueryParam("endingDate") Timestamp endingDate) {
+		int id = Integer.valueOf(userId);
+
+		Usuario user = UsuarioDAO.getInstance().findById(id);
+
+		List<Item> items;
+		if (startingDate != null && endingDate != null) {
+			items = ReporteDAO.getInstance().findItemsByUser(user);
+		} else {
+			items = ReporteDAO.getInstance().findItemsByUserAndRangeOfDates(user, startingDate, endingDate);
+		}
+
+		if (items != null) {
 			return items;
-		else
+		} else {
 			throw new RecursoNoExiste(id);
+		}
+	}
+	
+	@GET
+	@Path("/getTotalVolume/usuario/{userId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public int getAhorroPorFecha(@PathParam("userId") String userId,
+			@QueryParam("startingDate") Timestamp startingDate, @QueryParam("endingDate") Timestamp endingDate) {
+		int id = Integer.valueOf(userId);
+
+		Usuario user = UsuarioDAO.getInstance().findById(id);
+
+		if (startingDate != null && endingDate != null) {
+			return ReporteDAO.getInstance().findAhorroTotal(user);
+		} else {
+			return ReporteDAO.getInstance().findAhorroPorFecha(user, startingDate, endingDate);
+		}
 	}
 
 	public class RecursoNoExiste extends WebApplicationException {

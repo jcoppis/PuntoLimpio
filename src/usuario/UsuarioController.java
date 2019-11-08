@@ -14,7 +14,6 @@ import javax.ws.rs.core.Response;
 
 @Path("/")
 public class UsuarioController {
-
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)

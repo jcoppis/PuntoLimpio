@@ -47,7 +47,7 @@ public class PuntoRecoleccionTest {
 	}
 
 	@Before
-	public void createEm(){
+	public void createEm() {
 		entityManager = emf.createEntityManager();
 	}
 
@@ -57,7 +57,7 @@ public class PuntoRecoleccionTest {
 	}
 
 	@Test
-	public void getPuntoMasCercano() {		
+	public void getPuntoMasCercano() {
 		double latitude = 38.4161;
 		double longitude = 63.6167;
 
@@ -84,26 +84,28 @@ public class PuntoRecoleccionTest {
 		entityManager.persist(p2);
 		entityManager.persist(p3);
 		entityManager.getTransaction().commit();
-		
+
 		PuntoRecoleccion minPuntoRecoleccion = null;
-        double cercania = 0;
-        
+		double cercania = 0;
+
 		Query q = entityManager.createQuery("FROM PuntoRecoleccion");
 		List<PuntoRecoleccion> puntosRecoleccion = q.getResultList();
-		
-        for(PuntoRecoleccion p : puntosRecoleccion) {
-        	if (minPuntoRecoleccion == null) { 
-        		minPuntoRecoleccion = p; 
-        		cercania = (p.getLatitude() - latitude) * (p.getLatitude() - latitude) + (p.getLongitude() - longitude) * (p.getLongitude() - longitude);
-        	}
-        	
-        	if (((p.getLatitude() - latitude) * (p.getLatitude() - latitude) + (p.getLongitude() - longitude) * (p.getLongitude() - longitude))
-        			< cercania) {        		
-        		minPuntoRecoleccion = p;
-        		cercania = (p.getLatitude() - latitude) * (p.getLatitude() - latitude) + (p.getLongitude() - longitude) * (p.getLongitude() - longitude);
-        	}
-        }
-        assertTrue(minPuntoRecoleccion.getLatitude() == p3.getLatitude());
-        assertTrue(minPuntoRecoleccion.getLongitude() == p3.getLongitude());
+
+		for (PuntoRecoleccion p : puntosRecoleccion) {
+			if (minPuntoRecoleccion == null) {
+				minPuntoRecoleccion = p;
+				cercania = (p.getLatitude() - latitude) * (p.getLatitude() - latitude)
+						+ (p.getLongitude() - longitude) * (p.getLongitude() - longitude);
+			}
+
+			if (((p.getLatitude() - latitude) * (p.getLatitude() - latitude)
+					+ (p.getLongitude() - longitude) * (p.getLongitude() - longitude)) < cercania) {
+				minPuntoRecoleccion = p;
+				cercania = (p.getLatitude() - latitude) * (p.getLatitude() - latitude)
+						+ (p.getLongitude() - longitude) * (p.getLongitude() - longitude);
+			}
+		}
+		assertTrue(minPuntoRecoleccion.getLatitude() == p3.getLatitude());
+		assertTrue(minPuntoRecoleccion.getLongitude() == p3.getLongitude());
 	}
 }
