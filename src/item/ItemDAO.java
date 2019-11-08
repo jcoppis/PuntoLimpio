@@ -6,17 +6,18 @@ import javax.persistence.Query;
 
 import puntolimpio.EMF;
 import puntolimpio.ImplDAO;
-public class itemDAO extends ImplDAO<Item, Integer>{
 
-		private static itemDAO daoItem;
+public class ItemDAO extends ImplDAO<Item, Integer>{
+
+		private static ItemDAO daoItem;
 		
-		private itemDAO() {
+		private ItemDAO() {
 			super(Item.class, Integer.class);
 		}
 	    
-		public static itemDAO getInstance() {
+		public static ItemDAO getInstance() {
 			if(daoItem == null)
-				daoItem = new itemDAO();
+				daoItem = new ItemDAO();
 			return daoItem;
 		}
 

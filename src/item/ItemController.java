@@ -20,7 +20,7 @@ public class ItemController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createItem(Item item) {
-		Item result= itemDAO.getInstance().persist(item);
+		Item result= ItemDAO.getInstance().persist(item);
 		if(result == null) {
 			throw new RecursoDuplicado(item.getId());
 		}else {
@@ -31,7 +31,7 @@ public class ItemController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Item> getAllItems() {
-		return itemDAO.getInstance().findAll();
+		return ItemDAO.getInstance().findAll();
 	}
 	
 	@GET
@@ -39,7 +39,7 @@ public class ItemController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Item getItemById(@PathParam("id") String msg) {
 		int id = Integer.valueOf(msg);
-		Item item = itemDAO.getInstance().findById(id);
+		Item item = ItemDAO.getInstance().findById(id);
 		if(item != null)
 			return item;
 		else

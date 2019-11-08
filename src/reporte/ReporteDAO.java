@@ -1,5 +1,8 @@
 package reporte;
 
+import static org.junit.Assert.assertEquals;
+
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,5 +53,40 @@ public class ReporteDAO extends ImplDAO<Reporte, Integer> {
 		}
 
 		return false;
+	}
+	
+	public List<Reporte> itemsByUserAndRangeOfDates(Usuario user, Timestamp time1, Timestamp time2) {
+		EntityManager entityManager = EMF.createEntityManager();
+		Query qUitem = entityManager.createQuery
+				("FROM Reporte ui WHERE ui.usuario = :user AND ui.fechaReciclaje BETWEEN :date1 AND :date2");
+		qUitem.setParameter("user", user);
+		qUitem.setParameter("date1", time1);
+		qUitem.setParameter("date2", time2);
+		List<Reporte> reportes = qUitem.getResultList();
+		return reportes;
+	}
+	
+	public Integer ahorroPorFecha(Usuario user, Timestamp time1, Timestamp time2) {
+		int ahorro=0;
+		List<Reporte> reportes = this.itemsByUserAndRangeOfDates(user, time1, time2);
+
+		for (Reporte reporte : reportes) {
+			ahorro+=(reporte.getItem().getVolumen()* reporte.getCantidad());
+			//System.out.println(reporte.getItem().toString()); 
+			}
+		return ahorro;
+	}
+	
+	public Integer ahorroTotal(Usuario user) {
+		EntityManager entityManager = EMF.createEntityManager();
+		int ahorro=0;
+		Query qUitem = entityManager.createQuery
+				("FROM Reporte ui WHERE ui.usuario = :user");
+		qUitem.setParameter("user", user);
+		List<Reporte> reportes = qUitem.getResultList();
+		for (Reporte reporte : reportes) {
+			ahorro+=(reporte.getItem().getVolumen()* reporte.getCantidad());
+		}
+		return ahorro;
 	}
 }
