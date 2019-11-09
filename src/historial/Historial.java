@@ -23,8 +23,7 @@ public class Historial {
 	@Id
 	@GeneratedValue
 	private int id;
-	
-	
+
 	@OneToOne
 	private Reporte reporte;
 
@@ -36,6 +35,14 @@ public class Historial {
 	private Timestamp fechaReciclaje;
 	
 	private int cantidad;
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	public int getCantidad() {
 		return cantidad;
