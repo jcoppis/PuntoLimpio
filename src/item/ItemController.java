@@ -54,7 +54,7 @@ public class ItemController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteById(@PathParam("id") String deleteId) {
 		int id = Integer.valueOf(deleteId);
-		boolean delete = itemDAO.getInstance().delete(id);
+		boolean delete = ItemDAO.getInstance().delete(id);
 		if(delete) {
 			 return Response.status(204).build();
 		}
