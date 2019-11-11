@@ -8,9 +8,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import usuario.UsuarioDAO;
 
 @Path("/")
 public class ItemController {
@@ -45,7 +48,19 @@ public class ItemController {
 		else
 			throw new RecursoNoExiste(id);
 	}
-
+	
+	@DELETE
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteById(@PathParam("id") String deleteId) {
+		int id = Integer.valueOf(deleteId);
+		boolean delete = ItemDAO.getInstance().delete(id);
+		if(delete) {
+			 return Response.status(204).build();
+		}
+			return Response.status(404).build();
+	}
+	
 	public class RecursoNoExiste extends WebApplicationException {
 	     public RecursoNoExiste(int id) {
 	         super(Response.status(Response.Status.NOT_FOUND)
