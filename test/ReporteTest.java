@@ -200,9 +200,6 @@ public class ReporteTest {
 	public static void close() {
 		emf.close();
 	}
-
-	static ReporteDAO reporteDAO = ReporteDAO.getInstance();
-	
 	
 	@Before
 	public void createEm() {

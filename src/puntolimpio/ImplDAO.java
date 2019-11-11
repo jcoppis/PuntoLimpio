@@ -46,8 +46,8 @@ public class ImplDAO<Entity, ID extends Serializable> implements DAO<Entity, ID>
 
 	@Override
 	public boolean delete(ID id) {
+		EntityManager entityManager = EMF.createEntityManager();
 		Entity entity = entityManager.find(entityClass, id);
-
 		if (entity != null) {
 			entityManager.getTransaction().begin();
 			entityManager.remove(entity);

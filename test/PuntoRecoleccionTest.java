@@ -9,7 +9,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -18,6 +20,7 @@ import puntorecoleccion.PuntoRecoleccion;
 
 public class PuntoRecoleccionTest {
 	private static EntityManagerFactory emf;
+	private static EntityManager entityManager;
 
 	@BeforeClass
 	public static void init() {
@@ -43,8 +46,18 @@ public class PuntoRecoleccionTest {
 		emf.close();
 	}
 
+	@Before
+	public void createEm() {
+		entityManager = emf.createEntityManager();
+	}
+
+	@After
+	public void closeEm() {
+		entityManager.close();
+	}
+
 	@Test
-	public void getPuntoMasCercano() {		
+	public void getPuntoMasCercano() {
 		double latitude = 38.4161;
 		double longitude = 63.6167;
 
@@ -66,33 +79,33 @@ public class PuntoRecoleccionTest {
 		p3.setLatitude(40);
 		p3.setLongitude(60);
 
-		EntityManager entityManager = emf.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.persist(p1);
 		entityManager.persist(p2);
 		entityManager.persist(p3);
 		entityManager.getTransaction().commit();
-		
+
 		PuntoRecoleccion minPuntoRecoleccion = null;
-        double cercania = 0;
-        
+		double cercania = 0;
+
 		Query q = entityManager.createQuery("FROM PuntoRecoleccion");
 		List<PuntoRecoleccion> puntosRecoleccion = q.getResultList();
-		entityManager.close();
-		
-        for(PuntoRecoleccion p : puntosRecoleccion) {
-        	if (minPuntoRecoleccion == null) { 
-        		minPuntoRecoleccion = p; 
-        		cercania = (p.getLatitude() - latitude) * (p.getLatitude() - latitude) + (p.getLongitude() - longitude) * (p.getLongitude() - longitude);
-        	}
-        	
-        	if (((p.getLatitude() - latitude) * (p.getLatitude() - latitude) + (p.getLongitude() - longitude) * (p.getLongitude() - longitude))
-        			< cercania) {        		
-        		minPuntoRecoleccion = p;
-        		cercania = (p.getLatitude() - latitude) * (p.getLatitude() - latitude) + (p.getLongitude() - longitude) * (p.getLongitude() - longitude);
-        	}
-        }
-        assertTrue(minPuntoRecoleccion.getLatitude() == p3.getLatitude());
-        assertTrue(minPuntoRecoleccion.getLongitude() == p3.getLongitude());
+
+		for (PuntoRecoleccion p : puntosRecoleccion) {
+			if (minPuntoRecoleccion == null) {
+				minPuntoRecoleccion = p;
+				cercania = (p.getLatitude() - latitude) * (p.getLatitude() - latitude)
+						+ (p.getLongitude() - longitude) * (p.getLongitude() - longitude);
+			}
+
+			if (((p.getLatitude() - latitude) * (p.getLatitude() - latitude)
+					+ (p.getLongitude() - longitude) * (p.getLongitude() - longitude)) < cercania) {
+				minPuntoRecoleccion = p;
+				cercania = (p.getLatitude() - latitude) * (p.getLatitude() - latitude)
+						+ (p.getLongitude() - longitude) * (p.getLongitude() - longitude);
+			}
+		}
+		assertTrue(minPuntoRecoleccion.getLatitude() == p3.getLatitude());
+		assertTrue(minPuntoRecoleccion.getLongitude() == p3.getLongitude());
 	}
 }

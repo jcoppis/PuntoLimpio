@@ -82,4 +82,17 @@
 		<servlet-name>Reporte</servlet-name>
 		<url-pattern>/api/reportes/*</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Itinerario</servlet-name>
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>jersey.config.server.provider.packages</param-name>
+			<param-value>itinerario</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Itinerario</servlet-name>
+		<url-pattern>/api/itinerarios/*</url-pattern>
+	</servlet-mapping>
 </web-app>

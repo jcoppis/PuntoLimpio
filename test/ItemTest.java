@@ -16,7 +16,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import item.Item;
-import item.itemDAO;
 
 public class ItemTest {
 	private static EntityManagerFactory emf;
@@ -55,7 +54,6 @@ public class ItemTest {
 	}
 
 	
-	static itemDAO itemDao = itemDAO.getInstance();
 	@Before
 	public void createEm(){
 		entityManager= emf.createEntityManager();

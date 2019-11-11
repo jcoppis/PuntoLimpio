@@ -52,3 +52,23 @@ GET :host/useritems
 :id = 1
 GET :host/useritems/:id
 #############
+:idCamion = 1
+:fecha = 2019-09-09
+:puntoRecoleccion = 1
+:data = <<
+{
+"idCamion": :idCamion,
+"fecha": :fecha,
+"idPuntoRecoleccion": :puntoRecoleccion
+}
+#
+
+# POST :host/itinerarios?idCamion=:idCamion&fecha=:fecha&puntoRecoleccionId=:puntoRecoleccion
+
+POST :host/itinerarios
+Content-Type: application/json
+
+:data
+
+#############
+GET :host/itinerarios/26

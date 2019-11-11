@@ -8,9 +8,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import usuario.UsuarioDAO;
 
 @Path("/")
 public class ItemController {
@@ -20,7 +23,7 @@ public class ItemController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createItem(Item item) {
-		Item result= itemDAO.getInstance().persist(item);
+		Item result= ItemDAO.getInstance().persist(item);
 		if(result == null) {
 			throw new RecursoDuplicado(item.getId());
 		}else {
@@ -31,7 +34,7 @@ public class ItemController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Item> getAllItems() {
-		return itemDAO.getInstance().findAll();
+		return ItemDAO.getInstance().findAll();
 	}
 	
 	@GET
@@ -39,13 +42,25 @@ public class ItemController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Item getItemById(@PathParam("id") String msg) {
 		int id = Integer.valueOf(msg);
-		Item item = itemDAO.getInstance().findById(id);
+		Item item = ItemDAO.getInstance().findById(id);
 		if(item != null)
 			return item;
 		else
 			throw new RecursoNoExiste(id);
 	}
-
+	
+	@DELETE
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteById(@PathParam("id") String deleteId) {
+		int id = Integer.valueOf(deleteId);
+		boolean delete = ItemDAO.getInstance().delete(id);
+		if(delete) {
+			 return Response.status(204).build();
+		}
+			return Response.status(404).build();
+	}
+	
 	public class RecursoNoExiste extends WebApplicationException {
 	     public RecursoNoExiste(int id) {
 	         super(Response.status(Response.Status.NOT_FOUND)
