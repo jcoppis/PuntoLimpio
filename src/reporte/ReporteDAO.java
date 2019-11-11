@@ -1,8 +1,9 @@
 package reporte;
 
-import static org.junit.Assert.assertEquals;
-
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,10 +11,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import item.Item;
+import item.ItemDAO;
 import puntolimpio.EMF;
 import puntolimpio.ImplDAO;
 import puntorecoleccion.PuntoRecoleccion;
+import puntorecoleccion.PuntoRecoleccionDAO;
 import usuario.Usuario;
+import usuario.UsuarioDAO;
 
 public class ReporteDAO extends ImplDAO<Reporte, Integer> {
 
@@ -28,7 +32,31 @@ public class ReporteDAO extends ImplDAO<Reporte, Integer> {
 			daoItem = new ReporteDAO();
 		return daoItem;
 	}
+	
+	public void persist(int userId, int itemId, int puntoRecoleccionId, int cantidad) {
+		EntityManager entityManager = EMF.createEntityManager();
+		
+		Usuario usuario = UsuarioDAO.getInstance().findById(userId);
+		Item item = ItemDAO.getInstance().findById(itemId);
+		PuntoRecoleccion puntoRecoleccion = PuntoRecoleccionDAO.getInstance().findById(puntoRecoleccionId);
+		
+		if(puntoRecoleccion != null && item != null && usuario != null) {
+			Reporte r = new Reporte();
+			r.setId(0);
+			r.setUsuario(usuario);
+			r.setItem(item);
+			r.setPuntoRecoleccion(puntoRecoleccion);
+			r.setCantidad(cantidad);
+			Date d = new Date();
+			DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			r.setFechaReciclaje(Timestamp.valueOf(sdf.format(d)));
+			r.setRecycled(false);
+			persist(r);
+		}
+		entityManager.close();
+	}
 
+	
 	public List<Item> findItemsByUser(Usuario usuario) {
 		EntityManager entityManager = EMF.createEntityManager();
 		

@@ -59,10 +59,16 @@ GET :host/useritems/:id
 {
 "idCamion": :idCamion,
 "fecha": :fecha,
-"puntoRecoleccion": :puntoRecoleccion
+"idPuntoRecoleccion": :puntoRecoleccion
 }
 #
-POST :host/itinerarios?idCamion=:idCamion&fecha=:fecha&puntoRecoleccionId=:puntoRecoleccion
+
+# POST :host/itinerarios?idCamion=:idCamion&fecha=:fecha&puntoRecoleccionId=:puntoRecoleccion
+
+POST :host/itinerarios
+Content-Type: application/json
+
+:data
 
 #############
 GET :host/itinerarios/26

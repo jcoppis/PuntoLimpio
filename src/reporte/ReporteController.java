@@ -15,12 +15,30 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import item.Item;
+import itinerario.ItinerarioDAO;
 import usuario.Usuario;
 import usuario.UsuarioDAO;
 
 @Path("/")
 public class ReporteController {
 
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response createReporte(@QueryParam("userId") String userId, @QueryParam("itemId") String itemId, @QueryParam("puntoRecoleccionId") String puntoRecoleccionId, @QueryParam("cantidad") String cantidad) {
+		int u = Integer.valueOf(userId);
+		int i = Integer.valueOf(itemId);
+		int p = Integer.valueOf(puntoRecoleccionId);
+		int c = Integer.valueOf(cantidad);
+		
+		try {
+			System.out.println("entre");
+			ReporteDAO.getInstance().persist(u, i, p, c);
+			return Response.status(201).build();
+		} catch(Exception e) {
+			return Response.status(404).build();
+		}		
+	}
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

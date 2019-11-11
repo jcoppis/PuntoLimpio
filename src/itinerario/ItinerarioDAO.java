@@ -26,7 +26,6 @@ public class ItinerarioDAO extends ImplDAO<Itinerario, Integer> {
 		return daoItinerario;
 	}
 	
-	
 	public void persist(int idCamion, Timestamp fecha, int puntoRecoleccionId) {
 		EntityManager entityManager = EMF.createEntityManager();
 
