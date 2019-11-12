@@ -34,22 +34,12 @@ public class Historial {
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
 	private Timestamp fechaReciclaje;
 	
-	private int cantidad;
-	
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
-	}
-	
-	public int getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
 	}
 
 	public Reporte getReporte() {
@@ -60,11 +50,11 @@ public class Historial {
 		this.reporte = reporte;
 	}
 
-	public LugarReciclaje getlReciclaje() {
+	public LugarReciclaje getLugarReciclaje() {
 		return lugarReciclaje;
 	}
 
-	public void setlReciclaje(LugarReciclaje lReciclaje) {
+	public void setLugarReciclaje(LugarReciclaje lReciclaje) {
 		this.lugarReciclaje = lReciclaje;
 	}
 
@@ -81,6 +71,4 @@ public class Historial {
 		return "Historial [id=" + id + ", reporte=" + reporte + ", lugarReciclaje=" + lugarReciclaje + ", fechaReciclaje="
 				+ fechaReciclaje + "]";
 	}
-
-			
 }
