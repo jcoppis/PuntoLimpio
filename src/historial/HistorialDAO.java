@@ -1,16 +1,20 @@
 package historial;
 
-import static org.junit.Assert.assertEquals;
-
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import lugarreciclaje.LugarReciclaje;
+import lugarreciclaje.LugarReciclajeDAO;
 import puntolimpio.EMF;
 import puntolimpio.ImplDAO;
+import reporte.Reporte;
+import reporte.ReporteDAO;
 
 public class HistorialDAO extends ImplDAO<Historial, Integer>{
 	private static HistorialDAO daoHistorial;
@@ -23,6 +27,25 @@ public class HistorialDAO extends ImplDAO<Historial, Integer>{
 		if(daoHistorial == null)
 			daoHistorial = new HistorialDAO();
 		return daoHistorial;
+	}
+	
+	public void persist(int reportId, int lugarId) {
+		EntityManager entityManager = EMF.createEntityManager();
+		
+		Reporte reporte = ReporteDAO.getInstance().findById(reportId);
+		LugarReciclaje lugarReciclaje = LugarReciclajeDAO.getInstance().findById(lugarId);
+		
+		if(reporte != null && lugarReciclaje != null) {
+			Historial h = new Historial();
+			h.setId(0);
+			h.setReporte(reporte);
+			h.setLugarReciclaje(lugarReciclaje);
+			Date d = new Date();
+			DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			h.setFechaReciclaje(Timestamp.valueOf(sdf.format(d)));
+			persist(h);
+		}
+		entityManager.close();
 	}
 	
 	public List<Historial> itemsByRecycleSiteAndRangeOfDates(int id, Timestamp startingDate, Timestamp endingDate) {
@@ -48,10 +71,6 @@ public class HistorialDAO extends ImplDAO<Historial, Integer>{
 		Query qHist = entityManager.createQuery("FROM Historial");
 		List<Historial> historiales = qHist.getResultList();
 		
-		for (Historial historial : historiales) {
-			System.out.println(historial.getReporte().getItem().getVolumen() +" " +historial.getCantidad() );
-			ahorro+=(historial.getReporte().getItem().getVolumen() * historial.getCantidad());
-		}
 		entityManager.close();
 		return ahorro;
 	}
@@ -64,10 +83,6 @@ public class HistorialDAO extends ImplDAO<Historial, Integer>{
 		q.setParameter("endingDate", endingDate);
 		List<Historial> historiales = q.getResultList();
 		
-		for (Historial historial : historiales) {
-			System.out.println(historial.getReporte().getItem().getVolumen() +" " +historial.getCantidad() );
-			ahorro+=(historial.getReporte().getItem().getVolumen() * historial.getCantidad());
-		}
 		entityManager.close();
 		return ahorro;
 	}

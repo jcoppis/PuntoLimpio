@@ -26,6 +26,21 @@ import usuario.UsuarioController.RecursoNoExiste;
 public class HistorialController {
 
 	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response createHistorial(@QueryParam("reportId") String reportId, @QueryParam("lugarId") String lugarId) {
+		int r = Integer.valueOf(reportId);
+		int l = Integer.valueOf(lugarId);
+		
+		try {
+			System.out.println("entre");
+			HistorialDAO.getInstance().persist(r, l);
+			return Response.status(201).build();
+		} catch(Exception e) {
+			return Response.status(404).build();
+		}		
+	}
+
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createHistorial(Historial historial) {
