@@ -1,4 +1,4 @@
-package puntolimpio;
+package puntorecoleccion;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,9 +13,10 @@ public class PuntoRecoleccion {
 	
 	private double latitude;
 	private double longitude;
+	private int cantNecesariaParaRecoleccion;
 
 //	@OneToMany(mappedBy="puntoRecoleccion", fetch=FetchType.LAZY)
-//	private List<UserItem> itemsArecolectar;
+//	private List<Reporte> itemsArecolectar;
 
 	
 	public int getId() {
@@ -44,13 +45,26 @@ public class PuntoRecoleccion {
 		this.longitude = longitude;
 	}
 
+	public int getCantNecesariaParaRecoleccion() {
+		return cantNecesariaParaRecoleccion;
+	}
 
-//	public List<UserItem> getItemsArecolectar() {
+	public void setCantNecesariaParaRecoleccion(int cantNecesariaParaRecoleccion) {
+		this.cantNecesariaParaRecoleccion = cantNecesariaParaRecoleccion;
+	}
+	
+
+	@Override
+	public String toString() {
+		return "Lat: " + this.getLatitude() + " Long: " + this.getLongitude();
+	}
+
+//	public List<Reporte> getItemsArecolectar() {
 //		return itemsArecolectar;
 //	}
 //
 //
-//	public void setItemsArecolectar(List<UserItem> itemsArecolectar) {
+//	public void setItemsArecolectar(List<Reporte> itemsArecolectar) {
 //		this.itemsArecolectar = itemsArecolectar;
 //	}
 

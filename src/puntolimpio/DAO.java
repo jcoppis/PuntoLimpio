@@ -21,7 +21,7 @@ public interface DAO<E, ID extends Serializable> {
 	 * @param newEntityValues an object with the new values to update the entity 
 	 * @return the updated entity or null if the entity id does not exist
 	 */
-	public E update(ID id,E newEntityValues);
+//	public E update(ID id,E newEntityValues);
 
 	/**
 	 * Find entity by id.
