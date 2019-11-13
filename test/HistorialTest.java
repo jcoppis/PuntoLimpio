@@ -290,7 +290,7 @@ public class HistorialTest {
 			ahorro+=(historial.getReporte().getItem().getVolumen() * historial.getReporte().getCantidad());
 		}
 		System.out.println(ahorro);
-		assertEquals(ahorro , 1490);
+		assertEquals(ahorro , 1990);
 		
 	}
 }
