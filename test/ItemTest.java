@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import item.Item;
+import models.Item;
 
 public class ItemTest {
 	private static EntityManagerFactory emf;

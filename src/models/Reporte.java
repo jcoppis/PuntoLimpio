@@ -1,4 +1,4 @@
-package reporte;
+package models;
 
 import java.sql.Timestamp;
 
@@ -10,10 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-import item.Item;
-import puntorecoleccion.PuntoRecoleccion;
-import usuario.Usuario;
 
 @Entity
 @Table(name="reporte")

@@ -1,9 +1,10 @@
-package item;
+package dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import models.Item;
 import puntolimpio.EMF;
 import puntolimpio.ImplDAO;
 

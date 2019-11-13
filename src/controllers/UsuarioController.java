@@ -1,4 +1,4 @@
-package item;
+package controllers;
 
 import java.util.List;
 
@@ -13,48 +13,47 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import usuario.UsuarioDAO;
+import dao.UsuarioDAO;
+import models.Usuario;
 
-@Path("/")
-public class ItemController {
-
+@Path("/usuarios")
+public class UsuarioController {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createItem(Item item) {
-		Item result= ItemDAO.getInstance().persist(item);
+	public Response createUsuario(Usuario usuario) {
+		Usuario result= UsuarioDAO.getInstance().persist(usuario);
 		if(result == null) {
-			throw new RecursoDuplicado(item.getId());
+			throw new RecursoDuplicado(usuario.getId());
 		}else {
-			return Response.status(201).entity(item).build();
+			return Response.status(201).entity(usuario).build();
 		}
 	}
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Item> getAllItems() {
-		return ItemDAO.getInstance().findAll();
+	public List<Usuario> getAllUsuarios() {
+		return UsuarioDAO.getInstance().findAll();
 	}
 	
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Item getItemById(@PathParam("id") String msg) {
+	public Usuario getUsuariosById(@PathParam("id") String msg) {
 		int id = Integer.valueOf(msg);
-		Item item = ItemDAO.getInstance().findById(id);
-		if(item != null)
-			return item;
+		Usuario usuario = UsuarioDAO.getInstance().findById(id);
+		if(usuario != null)
+			return usuario;
 		else
 			throw new RecursoNoExiste(id);
 	}
-	
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteById(@PathParam("id") String deleteId) {
 		int id = Integer.valueOf(deleteId);
-		boolean delete = ItemDAO.getInstance().delete(id);
+		boolean delete = UsuarioDAO.getInstance().delete(id);
 		if(delete) {
 			 return Response.status(204).build();
 		}
@@ -71,7 +70,7 @@ public class ItemController {
 	public class RecursoDuplicado extends WebApplicationException {
 	     public RecursoDuplicado(int id) {
 	         super(Response.status(Response.Status.CONFLICT)
-	             .entity("El recurso con ID "+id+" ya existe").type(MediaType.TEXT_PLAIN).build());
+	             .entity("El recurso con ID "+ id +" ya existe").type(MediaType.TEXT_PLAIN).build());
 	     }
 	}
 }

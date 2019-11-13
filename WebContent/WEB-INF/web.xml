@@ -8,91 +8,15 @@
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 	<servlet>
-		<servlet-name>Usuario</servlet-name>
+		<servlet-name>MiServicioREST</servlet-name>
 		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
 		<init-param>
 			<param-name>jersey.config.server.provider.packages</param-name>
-			<param-value>usuario</param-value>
-		</init-param>
-	</servlet>
-	<servlet>
-		<servlet-name>Item</servlet-name>
-		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-		<init-param>
-			<param-name>jersey.config.server.provider.packages</param-name>
-			<param-value>item</param-value>
-		</init-param>
-	</servlet>
-	<servlet>
-		<servlet-name>Punto-Recoleccion</servlet-name>
-		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-		<init-param>
-			<param-name>jersey.config.server.provider.packages</param-name>
-			<param-value>puntorecoleccion</param-value>
-		</init-param>
-	</servlet>
-	<servlet>
-		<servlet-name>Lugar-Recoleccion</servlet-name>
-		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-		<init-param>
-			<param-name>jersey.config.server.provider.packages</param-name>
-			<param-value>lugarrecoleccion</param-value>
-		</init-param>
-	</servlet>
-	<servlet>
-		<servlet-name>Historial</servlet-name>
-		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-		<init-param>
-			<param-name>jersey.config.server.provider.packages</param-name>
-			<param-value>historial</param-value>
-		</init-param>
-	</servlet>
-	<servlet>
-		<servlet-name>Reporte</servlet-name>
-		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-		<init-param>
-			<param-name>jersey.config.server.provider.packages</param-name>
-			<param-value>reporte</param-value>
+			<param-value>controllers</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Usuario</servlet-name>
-		<url-pattern>/api/usuarios/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>Item</servlet-name>
-		<url-pattern>/api/items/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>Punto-Recoleccion</servlet-name>
-		<url-pattern>/api/puntoRecolecciones/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>Lugar-Recoleccion</servlet-name>
-		<url-pattern>/api/lugarRecolecciones/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>Historial</servlet-name>
-		<url-pattern>/api/historiales/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>Reporte</servlet-name>
-		<url-pattern>/api/reportes/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>Itinerario</servlet-name>
-		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-		<init-param>
-			<param-name>jersey.config.server.provider.packages</param-name>
-			<param-value>itinerario</param-value>
-		</init-param>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Itinerario</servlet-name>
-		<url-pattern>/api/itinerarios/*</url-pattern>
+		<servlet-name>MiServicioREST</servlet-name>
+		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
 </web-app>

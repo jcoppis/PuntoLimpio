@@ -1,4 +1,4 @@
-package itinerario;
+package controllers;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -9,47 +9,63 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.persistence.Entity;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import puntorecoleccion.PuntoRecoleccion;
-import puntorecoleccion.PuntoRecoleccionDAO;
+import controllers.UsuarioController.RecursoNoExiste;
+import dao.HistorialDAO;
+import dao.ItemDAO;
+import dao.ReporteDAO;
+import dao.UsuarioDAO;
+import models.Historial;
+import models.Item;
+import models.Usuario;
 
-@Path("/")
-public class ItinerarioController {
+@Path("/historial")
+public class HistorialController {
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createItinerario(@QueryParam("idCamion") String idCamion, @QueryParam("fecha") String fecha, @QueryParam("puntoRecoleccionId") String puntoRecoleccionId) {
-		int c = Integer.valueOf(idCamion);
-		Timestamp t = Timestamp.valueOf(fecha + " 00:00:00");
-		int p = Integer.valueOf(puntoRecoleccionId);
+	public Response createHistorial(@QueryParam("reportId") String reportId, @QueryParam("lugarId") String lugarId) {
+		int r = Integer.valueOf(reportId);
+		int l = Integer.valueOf(lugarId);
 		
 		try {
 			System.out.println("entre");
-			ItinerarioDAO.getInstance().persist(c, t, p);
+			HistorialDAO.getInstance().persist(r, l);
 			return Response.status(201).build();
 		} catch(Exception e) {
 			return Response.status(404).build();
 		}		
 	}
 
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response createHistorial(Historial historial) {
+		Historial result = HistorialDAO.getInstance().persist(historial);
+		if (result == null) {
+			throw new RecursoDuplicado(historial.getId());
+		} else {
+			return Response.status(201).entity(historial).build();
+		}
+	}
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Itinerario> getAllItinerario() {
-		return ItinerarioDAO.getInstance().findAll();
+	public List<Historial> getAllHistorial() {
+		return HistorialDAO.getInstance().findAll();
 	}
 	
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Itinerario getItinerarioById(@PathParam("id") String msg) {
+	public Historial getHistorialById(@PathParam("id") String msg) {
 		int id = Integer.valueOf(msg);
-		Itinerario historial = ItinerarioDAO.getInstance().findById(id);
+		Historial historial = HistorialDAO.getInstance().findById(id);
 		if(historial != null)
 			return historial;
 		else
@@ -59,9 +75,9 @@ public class ItinerarioController {
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteItinerarioById(@PathParam("id") String msg) {
+	public Response deleteHistorialById(@PathParam("id") String msg) {
 		int id = Integer.valueOf(msg);
-		Boolean res = ItinerarioDAO.getInstance().delete(id);
+		Boolean res = HistorialDAO.getInstance().delete(id);
 		if(res) {
 			return Response.status(204).build();
 		}
@@ -69,15 +85,13 @@ public class ItinerarioController {
 	}
 
 	@GET
-	@Path("/itinerario/puntoRecoleccion/{puntoRecoleccionId}")
+	@Path("/getItems/recycleSite/{recycleSiteId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Itinerario> getItinerario(@PathParam("puntoRecoleccionId") String puntoRecoleccionId,
+	public List<Historial> getItemsByRecycleSiteAndRangeOfDates(@PathParam("recycleSiteId") String recycleSiteId,
 			@QueryParam("startingDate") Timestamp startingDate, @QueryParam("endingDate") Timestamp endingDate) {
 
-		int id = Integer.valueOf(puntoRecoleccionId);
-		
-		PuntoRecoleccion puntoRecoleccion = PuntoRecoleccionDAO.getInstance().findById(id);
-		List<Itinerario> items = ItinerarioDAO.getInstance().getItinerario(puntoRecoleccion);
+		int id = Integer.valueOf(recycleSiteId);
+		List<Historial> items = HistorialDAO.getInstance().itemsByRecycleSiteAndRangeOfDates(id, startingDate, endingDate);
 
 		if (items != null) {
 			return items;

@@ -1,4 +1,4 @@
-package historial;
+package models;
 
 import java.sql.Timestamp;
 
@@ -11,10 +11,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-import item.Item;
-import lugarreciclaje.LugarReciclaje;
-import reporte.Reporte;
 
 @Entity
 @Table(name="historial")

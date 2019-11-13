@@ -1,4 +1,4 @@
-package reporte;
+package dao;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -10,14 +10,12 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import item.Item;
-import item.ItemDAO;
+import models.Item;
+import models.PuntoRecoleccion;
+import models.Reporte;
+import models.Usuario;
 import puntolimpio.EMF;
 import puntolimpio.ImplDAO;
-import puntorecoleccion.PuntoRecoleccion;
-import puntorecoleccion.PuntoRecoleccionDAO;
-import usuario.Usuario;
-import usuario.UsuarioDAO;
 
 public class ReporteDAO extends ImplDAO<Reporte, Integer> {
 
