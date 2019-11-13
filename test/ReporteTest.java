@@ -16,11 +16,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import item.Item;
-import puntorecoleccion.PuntoRecoleccion;
-import reporte.Reporte;
-import reporte.ReporteDAO;
-import usuario.Usuario;
+import dao.ReporteDAO;
+import models.Item;
+import models.PuntoRecoleccion;
+import models.Reporte;
+import models.Usuario;
 
 public class ReporteTest {
 	private static EntityManagerFactory emf;

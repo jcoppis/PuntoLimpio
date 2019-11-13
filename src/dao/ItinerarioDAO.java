@@ -1,4 +1,4 @@
-package itinerario;
+package dao;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -6,10 +6,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import models.Itinerario;
+import models.PuntoRecoleccion;
 import puntolimpio.EMF;
 import puntolimpio.ImplDAO;
-import puntorecoleccion.PuntoRecoleccion;
-import puntorecoleccion.PuntoRecoleccionDAO;
 
 public class ItinerarioDAO extends ImplDAO<Itinerario, Integer> {
 

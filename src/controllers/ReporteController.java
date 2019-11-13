@@ -1,4 +1,4 @@
-package reporte;
+package controllers;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -15,11 +15,13 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import item.Item;
-import usuario.Usuario;
-import usuario.UsuarioDAO;
+import dao.ReporteDAO;
+import dao.UsuarioDAO;
+import models.Item;
+import models.Reporte;
+import models.Usuario;
 
-@Path("/")
+@Path("/reportes")
 public class ReporteController {
 
 	@POST

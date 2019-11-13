@@ -1,7 +1,8 @@
-package puntorecoleccion;
+package dao;
 
 import java.util.List;
 
+import models.PuntoRecoleccion;
 import puntolimpio.ImplDAO;
 
 public class PuntoRecoleccionDAO extends ImplDAO<PuntoRecoleccion, Integer> {

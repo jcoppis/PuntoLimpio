@@ -1,5 +1,6 @@
-package lugarreciclaje;
+package dao;
 
+import models.LugarReciclaje;
 import puntolimpio.ImplDAO;
 
 public class LugarReciclajeDAO extends ImplDAO<LugarReciclaje, Integer> {
