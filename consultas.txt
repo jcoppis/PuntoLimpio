@@ -22,9 +22,6 @@ GET :host/usuarios
 :id = 1
 GET :host/usuarios/:id
 #############
-:id = 1
-GET :host/usuarios/v2/:id
-#############
 :nombre = "pepito"
 :tipo = "metal"
 :volumen = 36
@@ -47,10 +44,10 @@ GET :host/items
 GET :host/items/:id
 #############
 #############
-GET :host/useritems
+GET :host/reportes
 #############
 :id = 1
-GET :host/useritems/:id
+GET :host/reportes/:id
 #############
 :idCamion = 1
 :fecha = 2019-09-09

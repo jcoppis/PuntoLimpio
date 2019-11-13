@@ -14,8 +14,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import itinerario.Itinerario;
-import puntorecoleccion.PuntoRecoleccion;
+import models.Itinerario;
+import models.PuntoRecoleccion;
 
 public class ItinerarioTest {
 	private static EntityManagerFactory emf;

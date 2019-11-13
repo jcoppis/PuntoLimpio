@@ -15,13 +15,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import historial.Historial;
-import historial.HistorialDAO;
-import item.Item;
-import lugarreciclaje.LugarReciclaje;
-import puntorecoleccion.PuntoRecoleccion;
-import reporte.Reporte;
-import usuario.Usuario;
+import dao.HistorialDAO;
+import models.Historial;
+import models.Item;
+import models.LugarReciclaje;
+import models.PuntoRecoleccion;
+import models.Reporte;
+import models.Usuario;
 
 public class HistorialTest {
 	private static EntityManagerFactory emf;
@@ -175,7 +175,6 @@ public class HistorialTest {
 		Ui4.setUsuario(user2);
 		
 		
-		
 		EntityManager entityManager = emf.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.persist(i1);
@@ -206,32 +205,28 @@ public class HistorialTest {
 		entityManager.getTransaction().begin();
 		Historial historial = new Historial();
 		historial.setReporte(Ui1);
-		historial.setlReciclaje(lugarReciclajeAPersistir);
-		historial.setCantidad(2);
+		historial.setLugarReciclaje(lugarReciclajeAPersistir);
 		Timestamp timestampHistorialPersist = Timestamp.valueOf("2019-02-01 00:00:00.0");
 		historial.setFechaReciclaje(timestampHistorialPersist);
 		entityManager.persist(historial);
 
 		Historial historial2 = new Historial();
 		historial2.setReporte(Ui2);
-		historial2.setlReciclaje(lugarReciclajeAPersistir);
-		historial2.setCantidad(2);
+		historial2.setLugarReciclaje(lugarReciclajeAPersistir);
 		Timestamp timestampHistorialPersist2 = Timestamp.valueOf("2019-02-02 00:00:00.0");
 		historial2.setFechaReciclaje(timestampHistorialPersist2);
 		entityManager.persist(historial2);
 
 		Historial historial3 = new Historial();
 		historial3.setReporte(Ui3);
-		historial3.setlReciclaje(lugarReciclajeAPersistir);
-		historial3.setCantidad(1);
+		historial3.setLugarReciclaje(lugarReciclajeAPersistir);
 		Timestamp timestampHistorialPersist3 = Timestamp.valueOf("2019-10-24 00:00:00.0");
 		historial3.setFechaReciclaje(timestampHistorialPersist3);
 		entityManager.persist(historial3);
 
 		Historial historial4 = new Historial();
 		historial4.setReporte(Ui4);
-		historial4.setlReciclaje(lugarReciclajeAPersistir);
-		historial4.setCantidad(2);
+		historial4.setLugarReciclaje(lugarReciclajeAPersistir);
 		Timestamp timestampHistorialPersist4 = Timestamp.valueOf("2019-10-20 00:00:00.0");
 		historial4.setFechaReciclaje(timestampHistorialPersist4);
 		entityManager.persist(historial4);
@@ -291,8 +286,8 @@ public class HistorialTest {
 		List<Historial> historiales = qHist.getResultList();
 		
 		for (Historial historial : historiales) {
-			System.out.println(historial.getReporte().getItem().getVolumen() +" " +historial.getCantidad() );
-			ahorro+=(historial.getReporte().getItem().getVolumen() * historial.getCantidad());
+			System.out.println(historial.getReporte().getItem().getVolumen() +" " +historial.getReporte().getCantidad() );
+			ahorro+=(historial.getReporte().getItem().getVolumen() * historial.getReporte().getCantidad());
 		}
 		System.out.println(ahorro);
 		assertEquals(ahorro , 1490);

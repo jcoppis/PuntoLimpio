@@ -1,4 +1,4 @@
-package usuario;
+package controllers;
 
 import java.util.List;
 
@@ -13,44 +13,50 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/")
-public class UsuarioController {
+import dao.ItemDAO;
+import dao.UsuarioDAO;
+import models.Item;
+
+@Path("/items")
+public class ItemController {
+
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createUsuario(Usuario usuario) {
-		Usuario result= UsuarioDAO.getInstance().persist(usuario);
+	public Response createItem(Item item) {
+		Item result= ItemDAO.getInstance().persist(item);
 		if(result == null) {
-			throw new RecursoDuplicado(usuario.getId());
+			throw new RecursoDuplicado(item.getId());
 		}else {
-			return Response.status(201).entity(usuario).build();
+			return Response.status(201).entity(item).build();
 		}
 	}
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Usuario> getAllUsuarios() {
-		return UsuarioDAO.getInstance().findAll();
+	public List<Item> getAllItems() {
+		return ItemDAO.getInstance().findAll();
 	}
 	
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Usuario getUsuariosById(@PathParam("id") String msg) {
+	public Item getItemById(@PathParam("id") String msg) {
 		int id = Integer.valueOf(msg);
-		Usuario usuario = UsuarioDAO.getInstance().findById(id);
-		if(usuario != null)
-			return usuario;
+		Item item = ItemDAO.getInstance().findById(id);
+		if(item != null)
+			return item;
 		else
 			throw new RecursoNoExiste(id);
 	}
+	
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteById(@PathParam("id") String deleteId) {
 		int id = Integer.valueOf(deleteId);
-		boolean delete = UsuarioDAO.getInstance().delete(id);
+		boolean delete = ItemDAO.getInstance().delete(id);
 		if(delete) {
 			 return Response.status(204).build();
 		}
@@ -67,7 +73,7 @@ public class UsuarioController {
 	public class RecursoDuplicado extends WebApplicationException {
 	     public RecursoDuplicado(int id) {
 	         super(Response.status(Response.Status.CONFLICT)
-	             .entity("El recurso con ID "+ id +" ya existe").type(MediaType.TEXT_PLAIN).build());
+	             .entity("El recurso con ID "+id+" ya existe").type(MediaType.TEXT_PLAIN).build());
 	     }
 	}
 }

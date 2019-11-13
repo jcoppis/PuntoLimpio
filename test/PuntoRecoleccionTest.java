@@ -15,8 +15,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import models.PuntoRecoleccion;
 import puntolimpio.EMF;
-import puntorecoleccion.PuntoRecoleccion;
 
 public class PuntoRecoleccionTest {
 	private static EntityManagerFactory emf;

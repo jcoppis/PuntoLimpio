@@ -1,5 +1,6 @@
-package usuario;
+package dao;
 
+import models.Usuario;
 import puntolimpio.ImplDAO;
 
 public class UsuarioDAO extends ImplDAO<Usuario, Integer> {

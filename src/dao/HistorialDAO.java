@@ -1,4 +1,4 @@
-package historial;
+package dao;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -9,12 +9,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import lugarreciclaje.LugarReciclaje;
-import lugarreciclaje.LugarReciclajeDAO;
+import models.Historial;
+import models.LugarReciclaje;
+import models.Reporte;
 import puntolimpio.EMF;
 import puntolimpio.ImplDAO;
-import reporte.Reporte;
-import reporte.ReporteDAO;
 
 public class HistorialDAO extends ImplDAO<Historial, Integer>{
 	private static HistorialDAO daoHistorial;
