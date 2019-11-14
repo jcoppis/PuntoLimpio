@@ -20,10 +20,12 @@ public class Itinerario {
 
 	@ManyToOne
 	private PuntoRecoleccion puntoRecoleccion;
+	
+	@ManyToOne
+	private LugarReciclaje lugarReciclaje;
 
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
 	private Timestamp fecha;
-
 	
 	public int getId() {
 		return id;
@@ -53,12 +55,19 @@ public class Itinerario {
 	public void setPuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) {
 		this.puntoRecoleccion = puntoRecoleccion;
 	}
+	
+	public LugarReciclaje getLugarReciclaje() {
+		return lugarReciclaje;
+	}
+
+	public void setLugarReciclaje(LugarReciclaje lugarReciclaje) {
+		this.lugarReciclaje = lugarReciclaje;
+	}
 
 
 	public Timestamp getFecha() {
 		return fecha;
 	}
-
 
 	public void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
