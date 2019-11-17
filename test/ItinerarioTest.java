@@ -77,14 +77,14 @@ public class ItinerarioTest {
 		Itinerario i1 = new Itinerario();
 		i1.setId(0);
 		i1.setFecha(timestamp);
-		i1.setIdCamion(1);
+		i1.setCamionId(1);
 		i1.setPuntoRecoleccion(p1);
 		i1.setLugarReciclaje(l1);
 		
 		Itinerario i2 = new Itinerario();
 		i2.setId(0);
 		i2.setFecha(timestamp2);
-		i2.setIdCamion(2);
+		i2.setCamionId(2);
 		i2.setPuntoRecoleccion(p2);
 		i2.setLugarReciclaje(l2);
 		
@@ -108,7 +108,7 @@ public class ItinerarioTest {
 		List<Itinerario> itinerario = q.getResultList();
 		entityManager.close();
 		
-		assertTrue(itinerario.get(0).getIdCamion() == i1.getIdCamion());
-		assertTrue(itinerario.get(0).getIdCamion() != i2.getIdCamion());
+		assertTrue(itinerario.get(0).getCamionId() == i1.getCamionId());
+		assertTrue(itinerario.get(0).getCamionId() != i2.getCamionId());
 	}
 }

@@ -50,6 +50,11 @@ public class ReporteDAO extends ImplDAO<Reporte, Integer> {
 			r.setFechaReciclaje(Timestamp.valueOf(sdf.format(d)));
 			r.setRecycled(false);
 			persist(r);
+			
+			if(this.isReadyForSend(puntoRecoleccion)) {
+				ItinerarioDAO.getInstance().createItinerario(puntoRecoleccion);
+			}
+			
 		}
 		entityManager.close();
 	}

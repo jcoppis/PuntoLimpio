@@ -16,7 +16,7 @@ public class Itinerario {
 	@GeneratedValue
 	private int id;
 	
-	private int idCamion;
+	private int camionId;
 
 	@ManyToOne
 	private PuntoRecoleccion puntoRecoleccion;
@@ -37,13 +37,13 @@ public class Itinerario {
 	}
 
 
-	public int getIdCamion() {
-		return idCamion;
+	public int getCamionId() {
+		return camionId;
 	}
 
 
-	public void setIdCamion(int idCamion) {
-		this.idCamion = idCamion;
+	public void setCamionId(int camionId) {
+		this.camionId = camionId;
 	}
 
 
