@@ -26,14 +26,15 @@ public class ItinerarioController {
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createItinerario(@QueryParam("idCamion") String idCamion, @QueryParam("fecha") String fecha, @QueryParam("puntoRecoleccionId") String puntoRecoleccionId) {
+	public Response createItinerario(@QueryParam("idCamion") String idCamion, @QueryParam("fecha") String fecha, @QueryParam("puntoRecoleccionId") String puntoRecoleccionId, @QueryParam("lugarReciclajeId") String lugarReciclajeId) {
 		int c = Integer.valueOf(idCamion);
 		Timestamp t = Timestamp.valueOf(fecha + " 00:00:00");
 		int p = Integer.valueOf(puntoRecoleccionId);
+		int l = Integer.valueOf(lugarReciclajeId);
 		
 		try {
 			System.out.println("entre");
-			ItinerarioDAO.getInstance().persist(c, t, p);
+			ItinerarioDAO.getInstance().persist(c, t, p, l);
 			return Response.status(201).build();
 		} catch(Exception e) {
 			return Response.status(404).build();
