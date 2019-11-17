@@ -57,7 +57,7 @@ public class LugarReciclajeTest {
 	}
 
 	@Test
-	public void getPuntoMasCercano() {
+	public void getLugarMasCercano() {
 		double latitude = 38.4161;
 		double longitude = 63.6167;
 

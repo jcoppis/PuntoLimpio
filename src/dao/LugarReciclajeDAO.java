@@ -19,7 +19,7 @@ public class LugarReciclajeDAO extends ImplDAO<LugarReciclaje, Integer> {
 		return daoLR;
 	}
 	
-	public LugarReciclaje getPuntoMasCercano(double latitude, double longitude) {
+	public LugarReciclaje getLugarMasCercano(double latitude, double longitude) {
         List<LugarReciclaje> lugarReciclaje = daoLR.findAll();
         
         LugarReciclaje minLugarReciclaje = null;
