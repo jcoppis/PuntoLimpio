@@ -43,20 +43,21 @@ GET :host/items
 :id = 1
 GET :host/items/:id
 #############
-#############
 GET :host/reportes
 #############
 :id = 1
 GET :host/reportes/:id
 #############
 :idCamion = 1
-:fecha = 2019-09-09
-:puntoRecoleccion = 1
+:fecha = "2019-09-09"
+:puntoRecoleccionId = 1
+:lugarReciclajeId = 1
 :data = <<
 {
-"idCamion": :idCamion,
+"camionId": :idCamion,
 "fecha": :fecha,
-"idPuntoRecoleccion": :puntoRecoleccion
+"puntoRecoleccionId": :puntoRecoleccionId,
+"lugarReciclajeId": :lugarReciclajeId
 }
 #
 
