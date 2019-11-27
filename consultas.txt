@@ -50,6 +50,35 @@ GET :host/items
 :id = 1
 GET :host/items/:id
 
+#############PUNTOSRECOLECCION##############
+:cantNecesariaParaRecoleccion = 32
+:latitude = 415
+:longitude = 444
+
+:data = <<
+{
+"id": 0,
+"latitude": :latitude,
+"longitude": :longitude,
+"cantNecesariaParaRecoleccion": :cantNecesariaParaRecoleccion
+}
+#
+POST :host/puntosRecoleccion
+Content-Type: application/json
+
+:data
+
+#############
+GET :host/puntosRecoleccion
+
+#############
+:id = 3
+GET :host/puntosRecoleccion/:id
+
+#############
+:id = 30
+GET :host/puntosRecoleccion/:id/volumenNecesario
+
 #############REPORTES##############
 :usuarioId = 11
 :itemId = 1
@@ -74,11 +103,20 @@ GET :host/reportes
 
 ############# se puede usar como queryParams 'startingDate' y 'endingDate'
 :userId = 11
-GET :host/reportes/getItems/usuario/:userId
+:startingDate = 2019-11-23
+:endingDate = 2019-12-05
+
+GET :host/reportes/getItems/usuario/:userId?startingDate=:startingDate&endingDate=:endingDate
 
 ############# se puede usar como queryParams 'startingDate' y 'endingDate'
 :userId = 11
 GET :host/reportes/getTotalVolume/usuario/:userId
+
+#############
+:puntoRecoleccionId = 1
+:startingDate = 2019-11-23
+:endingDate = 2019-12-05
+GET :host/reportes/puntoRecoleccion/:puntoRecoleccionId?startingDate=:startingDate&endingDate=:endingDate
 
 #############ITINERARIOS##############
 :camionId = 1
