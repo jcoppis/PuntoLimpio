@@ -139,3 +139,6 @@ GET :host/historial/:id
 ############# se puede usar como queryParams 'startingDate' y 'endingDate'
 :lugarReciclajeId = 1
 GET :host/historial/getItems/lugarReciclaje/:lugarReciclajeId
+
+############# se puede usar como queryParams 'startingDate' y 'endingDate'
+GET :host/historial/ahorroONG
