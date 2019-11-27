@@ -28,9 +28,12 @@ public class Reporte {
 	@ManyToOne
 	private PuntoRecoleccion puntoRecoleccion;
 
-	private int cantidad;
+	private int cantidadItems;
 
 	private boolean recycled;
+
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+	private Timestamp fechaReciclaje;
 
 	public boolean isRecycled() {
 		return recycled;
@@ -38,10 +41,6 @@ public class Reporte {
 	public void setRecycled(boolean recycled) {
 		this.recycled = recycled;
 	}
-	@Column(name="fecha_reciclaje")
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-	private Timestamp fechaReciclaje;
-	
 	public int getId() {
 		return id;
 	}
@@ -66,11 +65,11 @@ public class Reporte {
 	public void setPuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) {
 		this.puntoRecoleccion = puntoRecoleccion;
 	}
-	public int getCantidad() {
-		return cantidad;
+	public int getCantidadItems() {
+		return cantidadItems;
 	}
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
+	public void setCantidadItems(int cantidadItems) {
+		this.cantidadItems = cantidadItems;
 	}
 	public Timestamp getFechaReciclaje() {
 		return fechaReciclaje;
@@ -81,6 +80,6 @@ public class Reporte {
 	@Override
 	public String toString() {
 		return "Reporte [id=" + id + ", usuario=" + usuario + ", item=" + item + ", puntoRecoleccion="
-				+ puntoRecoleccion + ", cantidad=" + cantidad + ", fechaReciclaje=" + fechaReciclaje + "]";
+				+ puntoRecoleccion + ", cantidadItems=" + cantidadItems + ", fechaReciclaje=" + fechaReciclaje + "]";
 	}
 }

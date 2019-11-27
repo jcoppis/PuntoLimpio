@@ -23,34 +23,20 @@ import dao.UsuarioDAO;
 import models.Historial;
 import models.Item;
 import models.Usuario;
+import utils.HistorialReq;
 
 @Path("/historial")
 public class HistorialController {
 
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response createHistorial(@QueryParam("reportId") String reportId, @QueryParam("lugarId") String lugarId) {
-		int r = Integer.valueOf(reportId);
-		int l = Integer.valueOf(lugarId);
-		
-		try {
-			System.out.println("entre");
-			HistorialDAO.getInstance().persist(r, l);
-			return Response.status(201).build();
-		} catch(Exception e) {
-			return Response.status(404).build();
-		}		
-	}
-
-	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createHistorial(Historial historial) {
-		Historial result = HistorialDAO.getInstance().persist(historial);
-		if (result == null) {
-			throw new RecursoDuplicado(historial.getId());
-		} else {
-			return Response.status(201).entity(historial).build();
+	public Response createHistorial(HistorialReq h) {
+		try {
+			Historial res = HistorialDAO.getInstance().persist(h.getReporteId(), h.getLugarReciclajeId());
+			return Response.status(201).entity(res).build();
+		} catch (Exception e) {
+			return Response.status(400).build();
 		}
 	}
 
@@ -59,47 +45,54 @@ public class HistorialController {
 	public List<Historial> getAllHistorial() {
 		return HistorialDAO.getInstance().findAll();
 	}
-	
+
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Historial getHistorialById(@PathParam("id") String msg) {
 		int id = Integer.valueOf(msg);
 		Historial historial = HistorialDAO.getInstance().findById(id);
-		if(historial != null)
+		if (historial != null)
 			return historial;
 		else
 			throw new RecursoNoExiste(id);
 	}
-	
+
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteHistorialById(@PathParam("id") String msg) {
 		int id = Integer.valueOf(msg);
 		Boolean res = HistorialDAO.getInstance().delete(id);
-		if(res) {
+		if (res) {
 			return Response.status(204).build();
 		}
 		return Response.status(404).build();
 	}
 
 	@GET
-	@Path("/getItems/recycleSite/{recycleSiteId}")
+	@Path("/getItems/lugarReciclaje/{lugarReciclajeId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Historial> getItemsByRecycleSiteAndRangeOfDates(@PathParam("recycleSiteId") String recycleSiteId,
+	public List<Historial> getItemsByRecycleSiteAndRangeOfDates(@PathParam("lugarReciclajeId") String lugarReciclajeId,
 			@QueryParam("startingDate") Timestamp startingDate, @QueryParam("endingDate") Timestamp endingDate) {
 
-		int id = Integer.valueOf(recycleSiteId);
-		List<Historial> items = HistorialDAO.getInstance().itemsByRecycleSiteAndRangeOfDates(id, startingDate, endingDate);
-
+		int id = Integer.valueOf(lugarReciclajeId);
+		List<Historial> items;
+		if (startingDate != null && endingDate != null) {
+			System.out.println("entre");
+			items = HistorialDAO.getInstance().itemsByRecycleSite(id);
+		} else {
+			System.out.println("entre2");
+			items = HistorialDAO.getInstance().itemsByRecycleSiteAndRangeOfDates(id, startingDate, endingDate);
+		}
+		
 		if (items != null) {
 			return items;
 		} else {
 			throw new RecursoNoExiste(id);
 		}
 	}
-	
+
 	public class RecursoNoExiste extends WebApplicationException {
 		public RecursoNoExiste(int id) {
 			super(Response.status(Response.Status.NOT_FOUND).entity("El recurso con id " + id + " no fue encontrado")

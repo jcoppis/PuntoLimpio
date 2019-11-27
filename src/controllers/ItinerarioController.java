@@ -20,25 +20,22 @@ import dao.ItinerarioDAO;
 import dao.PuntoRecoleccionDAO;
 import models.Itinerario;
 import models.PuntoRecoleccion;
+import utils.ItinerarioReq;
 
 @Path("/itinerarios")
 public class ItinerarioController {
 
 	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createItinerario(@QueryParam("idCamion") String idCamion, @QueryParam("fecha") String fecha, @QueryParam("puntoRecoleccionId") String puntoRecoleccionId, @QueryParam("lugarReciclajeId") String lugarReciclajeId) {
-		int c = Integer.valueOf(idCamion);
-		Timestamp t = Timestamp.valueOf(fecha + " 00:00:00");
-		int p = Integer.valueOf(puntoRecoleccionId);
-		int l = Integer.valueOf(lugarReciclajeId);
+	public Response createItinerario(ItinerarioReq i) {
 		
 		try {
-			System.out.println("entre");
-			ItinerarioDAO.getInstance().persist(c, t, p, l);
-			return Response.status(201).build();
+			Itinerario res = ItinerarioDAO.getInstance().persist(i.getCamionId(), i.getFecha(), i.getPuntoRecoleccionId(), i.getLugarReciclajeId());
+			return Response.status(201).entity(res).build();
 		} catch(Exception e) {
-			return Response.status(404).build();
-		}		
+			return Response.status(400).build();
+		}
 	}
 
 	@GET
@@ -72,10 +69,9 @@ public class ItinerarioController {
 	}
 
 	@GET
-	@Path("/itinerario/puntoRecoleccion/{puntoRecoleccionId}")
+	@Path("/puntoRecoleccion/{puntoRecoleccionId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Itinerario> getItinerario(@PathParam("puntoRecoleccionId") String puntoRecoleccionId,
-			@QueryParam("startingDate") Timestamp startingDate, @QueryParam("endingDate") Timestamp endingDate) {
+	public List<Itinerario> getItinerarios(@PathParam("puntoRecoleccionId") String puntoRecoleccionId) {
 
 		int id = Integer.valueOf(puntoRecoleccionId);
 		
