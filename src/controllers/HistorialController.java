@@ -78,11 +78,9 @@ public class HistorialController {
 
 		int id = Integer.valueOf(lugarReciclajeId);
 		List<Historial> items;
-		if (startingDate != null && endingDate != null) {
-			System.out.println("entre");
+		if (startingDate == null && endingDate == null) {
 			items = HistorialDAO.getInstance().itemsByRecycleSite(id);
 		} else {
-			System.out.println("entre2");
 			items = HistorialDAO.getInstance().itemsByRecycleSiteAndRangeOfDates(id, startingDate, endingDate);
 		}
 		
@@ -92,6 +90,18 @@ public class HistorialController {
 			throw new RecursoNoExiste(id);
 		}
 	}
+	
+	@GET
+	@Path("/ahorroONG")
+	@Produces(MediaType.APPLICATION_JSON)
+	public int getAhorroONG(@QueryParam("startingDate") Timestamp startingDate, @QueryParam("endingDate") Timestamp endingDate) {
+
+		if (startingDate == null && endingDate == null) {
+			return HistorialDAO.getInstance().ahorroONG();
+		} else {
+			return HistorialDAO.getInstance().ahorroONGAndRangeOfDates(startingDate, endingDate);
+		}
+	}	
 
 	public class RecursoNoExiste extends WebApplicationException {
 		public RecursoNoExiste(int id) {
