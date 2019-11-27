@@ -55,7 +55,7 @@ public class ReporteController {
 		Usuario user = UsuarioDAO.getInstance().findById(id);
 
 		List<Item> items;
-		if (startingDate != null && endingDate != null) {
+		if (startingDate == null && endingDate == null) {
 			items = ReporteDAO.getInstance().findItemsByUser(user);
 		} else {
 			items = ReporteDAO.getInstance().findItemsByUserAndRangeOfDates(user, startingDate, endingDate);
@@ -77,7 +77,7 @@ public class ReporteController {
 
 		Usuario user = UsuarioDAO.getInstance().findById(id);
 
-		if (startingDate != null && endingDate != null) {
+		if (startingDate == null && endingDate == null) {
 			return ReporteDAO.getInstance().findAhorroTotal(user);
 		} else {
 			return ReporteDAO.getInstance().findAhorroPorFecha(user, startingDate, endingDate);
