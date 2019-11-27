@@ -26,14 +26,14 @@ public class ItinerarioDAO extends ImplDAO<Itinerario, Integer> {
 		return daoItinerario;
 	}
 	
-	public void persist(int camionId, Timestamp fecha, int puntoRecoleccionId, int lugarReciclajeId) {
+	public Itinerario persist(int camionId, Timestamp fecha, int puntoRecoleccionId, int lugarReciclajeId) {
 		EntityManager entityManager = EMF.createEntityManager();
 		
 		PuntoRecoleccion puntoRecoleccion = PuntoRecoleccionDAO.getInstance().findById(puntoRecoleccionId);
 		LugarReciclaje lugarReciclaje = LugarReciclajeDAO.getInstance().findById(lugarReciclajeId);
 		
+		Itinerario i = new Itinerario();
 		if(puntoRecoleccion != null && lugarReciclaje != null) {
-			Itinerario i = new Itinerario();
 			i.setId(0);
 			i.setCamionId(camionId);
 			i.setFecha(fecha);
@@ -42,6 +42,7 @@ public class ItinerarioDAO extends ImplDAO<Itinerario, Integer> {
 			persist(i);
 		}
 		entityManager.close();
+		return i;
 	}
 	
 	public List<Itinerario> getItinerario(PuntoRecoleccion puntoRecoleccion){
@@ -66,7 +67,7 @@ public class ItinerarioDAO extends ImplDAO<Itinerario, Integer> {
 
 	// usado como api externa por eso se pasa latitud y longitude en lugar des PuntoRecoleccion
 	public Timestamp getHorarioCamion(int camionId, double latitude, double longitude) {
-		return Timestamp.valueOf("2019-01-01 00:00:00.0");
+		return Timestamp.valueOf("2020-01-01 00:00:00.0");
 	}
 	
 	// usado como api externa

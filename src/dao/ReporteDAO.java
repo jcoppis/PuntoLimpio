@@ -31,22 +31,22 @@ public class ReporteDAO extends ImplDAO<Reporte, Integer> {
 		return daoItem;
 	}
 	
-	public void persist(int userId, int itemId, int puntoRecoleccionId, int cantidad) {
+	public Reporte persist(int userId, int itemId, int puntoRecoleccionId, int cantidadItems) {
 		EntityManager entityManager = EMF.createEntityManager();
 		
 		Usuario usuario = UsuarioDAO.getInstance().findById(userId);
 		Item item = ItemDAO.getInstance().findById(itemId);
 		PuntoRecoleccion puntoRecoleccion = PuntoRecoleccionDAO.getInstance().findById(puntoRecoleccionId);
 		
+		Reporte r = new Reporte();
 		if(puntoRecoleccion != null && item != null && usuario != null) {
-			Reporte r = new Reporte();
 			r.setId(0);
 			r.setUsuario(usuario);
 			r.setItem(item);
 			r.setPuntoRecoleccion(puntoRecoleccion);
-			r.setCantidad(cantidad);
+			r.setCantidadItems(cantidadItems);
 			Date d = new Date();
-			DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			r.setFechaReciclaje(Timestamp.valueOf(sdf.format(d)));
 			r.setRecycled(false);
 			persist(r);
@@ -57,6 +57,7 @@ public class ReporteDAO extends ImplDAO<Reporte, Integer> {
 			
 		}
 		entityManager.close();
+		return r;
 	}
 
 	
@@ -72,11 +73,10 @@ public class ReporteDAO extends ImplDAO<Reporte, Integer> {
 
 	public boolean isReadyForSend(PuntoRecoleccion pr) {
 		EntityManager entityManager = EMF.createEntityManager();
-		PuntoRecoleccion res = entityManager.find(PuntoRecoleccion.class, pr.getId());
-		if (res != null) {
-			int cantNec = res.getCantNecesariaParaRecoleccion();
-			Query q = entityManager.createQuery("FROM Reporte ui WHERE ui.puntoRecoleccion = :prId");
-			q.setParameter("prId", pr.getId());
+		if (pr != null) {
+			int cantNec = pr.getCantNecesariaParaRecoleccion();
+			Query q = entityManager.createQuery("FROM Reporte r WHERE r.puntoRecoleccion = :pr");
+			q.setParameter("pr", pr);
 			List<Reporte> reporte = q.getResultList();
 			entityManager.close();
 			int totalVolume = reporte.stream().mapToInt(x -> x.getItem().getVolumen()).sum();
@@ -110,7 +110,7 @@ public class ReporteDAO extends ImplDAO<Reporte, Integer> {
 		List<Reporte> reportes = qUitem.getResultList();
 		
 		for (Reporte reporte : reportes) {
-			ahorro+=(reporte.getItem().getVolumen()* reporte.getCantidad());
+			ahorro+=(reporte.getItem().getVolumen()* reporte.getCantidadItems());
 			//System.out.println(reporte.getItem().toString()); 
 			}
 		return ahorro;
@@ -124,7 +124,7 @@ public class ReporteDAO extends ImplDAO<Reporte, Integer> {
 		qUitem.setParameter("user", user);
 		List<Reporte> reportes = qUitem.getResultList();
 		for (Reporte reporte : reportes) {
-			ahorro+=(reporte.getItem().getVolumen()* reporte.getCantidad());
+			ahorro+=(reporte.getItem().getVolumen()* reporte.getCantidadItems());
 		}
 		return ahorro;
 	}

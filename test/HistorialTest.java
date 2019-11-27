@@ -144,7 +144,7 @@ public class HistorialTest {
 		
 		Reporte Ui1 = new Reporte();
 		Ui1.setId(0);
-		Ui1.setCantidad(2);
+		Ui1.setCantidadItems(2);
 		Ui1.setFechaReciclaje(time1);
 		Ui1.setItem(i1);
 		Ui1.setPuntoRecoleccion(p2);
@@ -152,7 +152,7 @@ public class HistorialTest {
 		
 		Reporte Ui2 = new Reporte();
 		Ui2.setId(0);
-		Ui2.setCantidad(2);
+		Ui2.setCantidadItems(2);
 		Ui2.setFechaReciclaje(time3);
 		Ui2.setItem(i4);
 		Ui2.setPuntoRecoleccion(p1);
@@ -160,7 +160,7 @@ public class HistorialTest {
 		
 		Reporte Ui3 = new Reporte();
 		Ui3.setId(0);
-		Ui3.setCantidad(3);
+		Ui3.setCantidadItems(3);
 		Ui3.setFechaReciclaje(time4);
 		Ui3.setItem(i4);
 		Ui3.setPuntoRecoleccion(p3);
@@ -168,7 +168,7 @@ public class HistorialTest {
 		
 		Reporte Ui4 = new Reporte();
 		Ui4.setId(0);
-		Ui4.setCantidad(1);
+		Ui4.setCantidadItems(1);
 		Ui4.setFechaReciclaje(time2);
 		Ui4.setItem(i3);
 		Ui4.setPuntoRecoleccion(p4);
@@ -286,8 +286,8 @@ public class HistorialTest {
 		List<Historial> historiales = qHist.getResultList();
 		
 		for (Historial historial : historiales) {
-			System.out.println(historial.getReporte().getItem().getVolumen() +" " +historial.getReporte().getCantidad() );
-			ahorro+=(historial.getReporte().getItem().getVolumen() * historial.getReporte().getCantidad());
+			System.out.println(historial.getReporte().getItem().getVolumen() +" " +historial.getReporte().getCantidadItems() );
+			ahorro+=(historial.getReporte().getItem().getVolumen() * historial.getReporte().getCantidadItems());
 		}
 		System.out.println(ahorro);
 		assertEquals(ahorro , 1990);
