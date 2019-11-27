@@ -9,6 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.sound.midi.Soundbank;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.WebApplicationException;
@@ -20,37 +21,22 @@ import dao.UsuarioDAO;
 import models.Item;
 import models.Reporte;
 import models.Usuario;
+import utils.ReporteReq;
 
 @Path("/reportes")
 public class ReporteController {
 
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response createReporte(@QueryParam("userId") String userId, @QueryParam("itemId") String itemId, @QueryParam("puntoRecoleccionId") String puntoRecoleccionId, @QueryParam("cantidad") String cantidad) {
-		int u = Integer.valueOf(userId);
-		int i = Integer.valueOf(itemId);
-		int p = Integer.valueOf(puntoRecoleccionId);
-		int c = Integer.valueOf(cantidad);
-		
-		try {
-			System.out.println("entre");
-			ReporteDAO.getInstance().persist(u, i, p, c);
-			return Response.status(201).build();
-		} catch(Exception e) {
-			return Response.status(404).build();
-		}		
-	}
-	
-	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createReporte(Reporte reporte) {
-		Reporte result = ReporteDAO.getInstance().persist(reporte);
-		if (result == null) {
-			throw new RecursoDuplicado(reporte.getId());
-		} else {
-			return Response.status(201).entity(reporte).build();
-		}
+	public Response createReporte(ReporteReq r) {
+		try {
+			Reporte res = ReporteDAO.getInstance().persist(r.getUsuarioId(), r.getItemId(), r.getPuntoRecoleccionId(), r.getCantidadItems());
+			return Response.status(201).entity(res).build();
+		} catch(Exception e) {
+			System.out.println(e);
+			return Response.status(400).build();
+		}		
 	}
 
 	@GET

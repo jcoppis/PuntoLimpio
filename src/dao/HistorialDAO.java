@@ -28,24 +28,40 @@ public class HistorialDAO extends ImplDAO<Historial, Integer>{
 		return daoHistorial;
 	}
 	
-	public void persist(int reportId, int lugarId) {
+	public Historial persist(int reportId, int lugarReciclajeId) {
 		EntityManager entityManager = EMF.createEntityManager();
 		
 		Reporte reporte = ReporteDAO.getInstance().findById(reportId);
-		LugarReciclaje lugarReciclaje = LugarReciclajeDAO.getInstance().findById(lugarId);
+		LugarReciclaje lugarReciclaje = LugarReciclajeDAO.getInstance().findById(lugarReciclajeId);
 		
+		Historial h = new Historial();
 		if(reporte != null && lugarReciclaje != null) {
-			Historial h = new Historial();
 			h.setId(0);
 			h.setReporte(reporte);
 			h.setLugarReciclaje(lugarReciclaje);
 			Date d = new Date();
-			DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			h.setFechaReciclaje(Timestamp.valueOf(sdf.format(d)));
 			persist(h);
 		}
 		entityManager.close();
+		return h;
 	}
+	
+	public List<Historial> itemsByRecycleSite(int id) {
+		EntityManager entityManager= EMF.createEntityManager();
+		Query qLugarReciclaje = entityManager.createQuery("FROM LugarReciclaje lr WHERE lr.id = :id");
+		qLugarReciclaje.setParameter("id", id);
+		List<LugarReciclaje> lrRes = qLugarReciclaje.getResultList();
+	
+		System.out.println("//////////////" + lrRes.get(0));
+		Query q = entityManager.createQuery(
+				"FROM Historial h WHERE h.lugarReciclaje = :lr");
+		q.setParameter("lr", lrRes.get(0));
+		List<Historial> historialItems = q.getResultList();
+		entityManager.close();
+		return historialItems;		
+	}	
 	
 	public List<Historial> itemsByRecycleSiteAndRangeOfDates(int id, Timestamp startingDate, Timestamp endingDate) {
 		EntityManager entityManager= EMF.createEntityManager();
@@ -60,8 +76,7 @@ public class HistorialDAO extends ImplDAO<Historial, Integer>{
 		q.setParameter("endingDate", endingDate);
 		List<Historial> historialItems = q.getResultList();
 		entityManager.close();
-		return historialItems;
-		
+		return historialItems;		
 	}
 
 	public Integer ahorroONG() {

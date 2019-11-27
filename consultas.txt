@@ -1,9 +1,10 @@
 :host = http://localhost:8080/PuntoLimpio/api
 
-#############
-:nombre = "pepito"
+#############USUARIOS##############
+:nombre = "pepito3"
 :latitude = 61
 :longitude = 36
+
 :data = <<
 {
 "id": 0,
@@ -16,15 +17,19 @@ POST :host/usuarios
 Content-Type: application/json
 
 :data
+
 #############
 GET :host/usuarios
+
 #############
 :id = 1
 GET :host/usuarios/:id
-#############
+
+#############ITEMS##############
 :nombre = "pepito"
 :tipo = "metal"
 :volumen = 36
+
 :data = <<
 {
 "id": 0,
@@ -37,36 +42,100 @@ POST :host/items
 Content-Type: application/json
 
 :data
+
 #############
 GET :host/items
+
 #############
 :id = 1
 GET :host/items/:id
-#############
-GET :host/reportes
-#############
-:id = 1
-GET :host/reportes/:id
-#############
-:idCamion = 1
-:fecha = "2019-09-09"
+
+#############REPORTES##############
+:usuarioId = 11
+:itemId = 1
 :puntoRecoleccionId = 1
-:lugarReciclajeId = 1
+:cantidadItems = 30
+
 :data = <<
 {
-"camionId": :idCamion,
+"usuarioId": :usuarioId,
+"itemId": :itemId,
+"puntoRecoleccionId": :puntoRecoleccionId,
+"cantidadItems": :cantidadItems
+}
+#
+POST :host/reportes
+Content-Type: application/json
+
+:data
+
+#############
+GET :host/reportes
+
+############# se puede usar como queryParams 'startingDate' y 'endingDate'
+:userId = 11
+GET :host/reportes/getItems/usuario/:userId
+
+############# se puede usar como queryParams 'startingDate' y 'endingDate'
+:userId = 11
+GET :host/reportes/getTotalVolume/usuario/:userId
+
+#############ITINERARIOS##############
+:camionId = 1
+:fecha = "2019-09-10"
+:puntoRecoleccionId = 1
+:lugarReciclajeId = 1
+
+:data = <<
+{
+"camionId": :camionId,
 "fecha": :fecha,
 "puntoRecoleccionId": :puntoRecoleccionId,
 "lugarReciclajeId": :lugarReciclajeId
 }
 #
 
-# POST :host/itinerarios?idCamion=:idCamion&fecha=:fecha&puntoRecoleccionId=:puntoRecoleccion
-
 POST :host/itinerarios
 Content-Type: application/json
 
 :data
 
+
 #############
-GET :host/itinerarios/26
+GET :host/itinerarios
+
+#############
+:id = 4
+GET :host/itinerarios/:id
+
+#############
+:puntoRecoleccionId = 1
+GET :host/itinerarios/puntoRecoleccion/:puntoRecoleccionId
+
+#############HISTORIAL##############
+:reporteId = 14
+:lugarReciclajeId = 1
+
+:data = <<
+{
+"reporteId": :reporteId,
+"lugarReciclajeId": :lugarReciclajeId
+}
+#
+
+POST :host/historial
+Content-Type: application/json
+
+:data
+
+
+#############
+GET :host/historial
+
+#############
+:id = 4
+GET :host/historial/:id
+
+############# se puede usar como queryParams 'startingDate' y 'endingDate'
+:lugarReciclajeId = 1
+GET :host/historial/getItems/lugarReciclaje/:lugarReciclajeId
