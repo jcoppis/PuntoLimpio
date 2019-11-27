@@ -64,7 +64,7 @@ public class ReporteDAO extends ImplDAO<Reporte, Integer> {
 	public List<Item> findItemsByUser(Usuario usuario) {
 		EntityManager entityManager = EMF.createEntityManager();
 		
-		Query q = entityManager.createQuery("FROM Reporte ui WHERE ui.usuario = :user");
+		Query q = entityManager.createQuery("FROM Reporte r WHERE r.usuario = :user");
 		q.setParameter("user", usuario);
 		List<Reporte> reportes = q.getResultList();
 		List<Item> items = reportes.stream().map(u -> u.getItem()).collect(Collectors.toList());
@@ -88,12 +88,13 @@ public class ReporteDAO extends ImplDAO<Reporte, Integer> {
 	
 	public List<Item> findItemsByUserAndRangeOfDates(Usuario user, Timestamp time1, Timestamp time2) {
 		EntityManager entityManager = EMF.createEntityManager();
-		Query qUitem = entityManager.createQuery
-				("FROM Reporte ui WHERE ui.usuario = :user AND ui.fechaReciclaje BETWEEN :date1 AND :date2");
-		qUitem.setParameter("user", user);
-		qUitem.setParameter("date1", time1);
-		qUitem.setParameter("date2", time2);
-		List<Reporte> reportes = qUitem.getResultList();
+		Query q = entityManager.createQuery
+				("FROM Reporte r WHERE r.usuario = :user AND r.fechaReciclaje BETWEEN :date1 AND :date2");
+		q.setParameter("user", user);
+		q.setParameter("date1", time1);
+		q.setParameter("date2", time2);
+		List<Reporte> reportes = q.getResultList();
+		entityManager.close();
 		List<Item> items = reportes.stream().map(u -> u.getItem()).collect(Collectors.toList());
 		return items;
 	}
@@ -102,16 +103,15 @@ public class ReporteDAO extends ImplDAO<Reporte, Integer> {
 		int ahorro=0;
 		
 		EntityManager entityManager = EMF.createEntityManager();
-		Query qUitem = entityManager.createQuery
-				("FROM Reporte ui WHERE ui.usuario = :user AND ui.fechaReciclaje BETWEEN :date1 AND :date2");
-		qUitem.setParameter("user", user);
-		qUitem.setParameter("date1", time1);
-		qUitem.setParameter("date2", time2);
-		List<Reporte> reportes = qUitem.getResultList();
+		Query q = entityManager.createQuery
+				("FROM Reporte r WHERE ui.usuario = :user AND r.fechaReciclaje BETWEEN :date1 AND :date2");
+		q.setParameter("user", user);
+		q.setParameter("date1", time1);
+		q.setParameter("date2", time2);
+		List<Reporte> reportes = q.getResultList();
 		
 		for (Reporte reporte : reportes) {
-			ahorro+=(reporte.getItem().getVolumen()* reporte.getCantidadItems());
-			//System.out.println(reporte.getItem().toString()); 
+			ahorro+=(reporte.getItem().getVolumen()* reporte.getCantidadItems()); 
 			}
 		return ahorro;
 	}
@@ -120,12 +120,34 @@ public class ReporteDAO extends ImplDAO<Reporte, Integer> {
 		int ahorro=0;
 		
 		EntityManager entityManager = EMF.createEntityManager();
-		Query qUitem = entityManager.createQuery("FROM Reporte ui WHERE ui.usuario = :user");
+		Query qUitem = entityManager.createQuery("FROM Reporte r WHERE r.usuario = :user");
 		qUitem.setParameter("user", user);
 		List<Reporte> reportes = qUitem.getResultList();
 		for (Reporte reporte : reportes) {
 			ahorro+=(reporte.getItem().getVolumen()* reporte.getCantidadItems());
 		}
 		return ahorro;
+	}
+
+	public List<Item> findItemsByPuntoRecoleccion(PuntoRecoleccion p) {
+		EntityManager entityManager = EMF.createEntityManager();
+		Query qUitem = entityManager.createQuery("FROM Reporte r WHERE r.puntoRecoleccion = :p");
+		qUitem.setParameter("p", p);
+		List<Reporte> reportes = qUitem.getResultList();
+		entityManager.close();
+		List<Item> items = reportes.stream().map(u -> u.getItem()).collect(Collectors.toList());
+		return items;
+	}
+	
+	public List<Item> findItemsByPuntoRecoleccionAndRangeOfDates(PuntoRecoleccion p, Timestamp time1, Timestamp time2) {
+		EntityManager entityManager = EMF.createEntityManager();
+		Query qUitem = entityManager.createQuery("FROM Reporte r WHERE r.puntoRecoleccion = :p AND r.fechaReciclaje BETWEEN :date1 AND :date2");
+		qUitem.setParameter("p", p);
+		qUitem.setParameter("date1", time1);
+		qUitem.setParameter("date2", time2);
+		List<Reporte> reportes = qUitem.getResultList();
+		entityManager.close();
+		List<Item> items = reportes.stream().map(u -> u.getItem()).collect(Collectors.toList());
+		return items;
 	}
 }

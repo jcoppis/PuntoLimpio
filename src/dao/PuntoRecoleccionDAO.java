@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import models.PuntoRecoleccion;
 import puntolimpio.ImplDAO;
 
@@ -20,22 +22,24 @@ public class PuntoRecoleccionDAO extends ImplDAO<PuntoRecoleccion, Integer> {
 	}
 
 	public PuntoRecoleccion getPuntoMasCercano(double latitude, double longitude) {
-        List<PuntoRecoleccion> puntosRecoleccion = daoPuntoRecoleccion.findAll();
-        
-        PuntoRecoleccion minPuntoRecoleccion = null;
-        double cercania = 0;
-        for(PuntoRecoleccion p : puntosRecoleccion) {
-        	if (minPuntoRecoleccion == null) { 
-        		minPuntoRecoleccion = p; 
-        		cercania = (p.getLatitude() - latitude) * (p.getLatitude() - latitude) + (p.getLongitude() - longitude) * (p.getLongitude() - longitude);
-        	}
-        	
-        	if (((p.getLatitude() - latitude) * (p.getLatitude() - latitude) + (p.getLongitude() - longitude) * (p.getLongitude() - longitude))
-        			< cercania) {        		
-        		minPuntoRecoleccion = p;
-        		cercania = (p.getLatitude() - latitude) * (p.getLatitude() - latitude) + (p.getLongitude() - longitude) * (p.getLongitude() - longitude);
-        	}
-        }
-        return minPuntoRecoleccion;
-    }
+		List<PuntoRecoleccion> puntosRecoleccion = daoPuntoRecoleccion.findAll();
+
+		PuntoRecoleccion minPuntoRecoleccion = null;
+		double cercania = 0;
+		for (PuntoRecoleccion p : puntosRecoleccion) {
+			if (minPuntoRecoleccion == null) {
+				minPuntoRecoleccion = p;
+				cercania = (p.getLatitude() - latitude) * (p.getLatitude() - latitude)
+						+ (p.getLongitude() - longitude) * (p.getLongitude() - longitude);
+			}
+
+			if (((p.getLatitude() - latitude) * (p.getLatitude() - latitude)
+					+ (p.getLongitude() - longitude) * (p.getLongitude() - longitude)) < cercania) {
+				minPuntoRecoleccion = p;
+				cercania = (p.getLatitude() - latitude) * (p.getLatitude() - latitude)
+						+ (p.getLongitude() - longitude) * (p.getLongitude() - longitude);
+			}
+		}
+		return minPuntoRecoleccion;
+	}
 }

@@ -74,14 +74,16 @@ public class HistorialController {
 	@Path("/getItems/lugarReciclaje/{lugarReciclajeId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Historial> getItemsByRecycleSiteAndRangeOfDates(@PathParam("lugarReciclajeId") String lugarReciclajeId,
-			@QueryParam("startingDate") Timestamp startingDate, @QueryParam("endingDate") Timestamp endingDate) {
+			@QueryParam("startingDate") String startingDate, @QueryParam("endingDate") String endingDate) {
 
 		int id = Integer.valueOf(lugarReciclajeId);
 		List<Historial> items;
 		if (startingDate == null && endingDate == null) {
 			items = HistorialDAO.getInstance().itemsByRecycleSite(id);
 		} else {
-			items = HistorialDAO.getInstance().itemsByRecycleSiteAndRangeOfDates(id, startingDate, endingDate);
+			Timestamp sDate = Timestamp.valueOf(startingDate + " 00:00:00"); // Tener en cuenta que hay que pasar una fecha en formato yyyy-MM-dd
+			Timestamp eDate = Timestamp.valueOf(endingDate + " 00:00:00"); // Tener en cuenta que hay que pasar una fecha en formato yyyy-MM-dd
+			items = HistorialDAO.getInstance().itemsByRecycleSiteAndRangeOfDates(id, sDate, eDate);
 		}
 		
 		if (items != null) {
@@ -94,12 +96,14 @@ public class HistorialController {
 	@GET
 	@Path("/ahorroONG")
 	@Produces(MediaType.APPLICATION_JSON)
-	public int getAhorroONG(@QueryParam("startingDate") Timestamp startingDate, @QueryParam("endingDate") Timestamp endingDate) {
+	public int getAhorroONG(@QueryParam("startingDate") String startingDate, @QueryParam("endingDate") String endingDate) {
 
 		if (startingDate == null && endingDate == null) {
 			return HistorialDAO.getInstance().ahorroONG();
 		} else {
-			return HistorialDAO.getInstance().ahorroONGAndRangeOfDates(startingDate, endingDate);
+			Timestamp sDate = Timestamp.valueOf(startingDate + " 00:00:00"); // Tener en cuenta que hay que pasar una fecha en formato yyyy-MM-dd
+			Timestamp eDate = Timestamp.valueOf(endingDate + " 00:00:00"); // Tener en cuenta que hay que pasar una fecha en formato yyyy-MM-dd
+			return HistorialDAO.getInstance().ahorroONGAndRangeOfDates(sDate, eDate);
 		}
 	}	
 
