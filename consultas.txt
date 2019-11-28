@@ -22,8 +22,16 @@ Content-Type: application/json
 GET :host/usuarios
 
 #############
-:id = 1
+:id = 2
 GET :host/usuarios/:id
+
+#############
+:id = 2
+GET :host/usuarios/:id/puntoRecoleccionMasCercano
+
+#############
+:id = 2
+GET :host/usuarios/:id/itinerarios
 
 #############ITEMS##############
 :nombre = "pepito"
@@ -137,7 +145,6 @@ POST :host/itinerarios
 Content-Type: application/json
 
 :data
-
 
 #############
 GET :host/itinerarios
